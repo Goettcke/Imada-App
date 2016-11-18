@@ -1,0 +1,156 @@
+* Imada App
+React Native go on 
+
+* Setting everything up
+
+Note that this assumes you are running Linux. If you are running Windows or OS
+X, you are on your own. However, if you should figure out the steps, please add
+them to this README.
+
+** Installing some required tools
+*** NodeJS
+Install NodeJS using your distribution's package manager.
+
+On Ubuntu, that would be 
+#+BEGIN_SRC bash
+sudo apt-get update && sudo apt install nodejs nodejs-legacy
+#+END_SRC
+The latter package just sets up a symlink(See [[https://nodejs.org/en/download/package-manager/][this]]).
+*** Yarn
+Yarn is a package manager like npm, but not complete shit like npm. Follow [[https://yarnpkg.com/en/docs/install][this guide]].
+*** react-native
+I *think* the following will work. 
+#+BEGIN_SRC bash
+sudo yarn global add react-native
+#+END_SRC
+
+If it doesn't, use npm.
+#+BEGIN_SRC bash 
+sudo npm install -g react-native
+#+END_SRC
+
+*** Watchman
+You can probably skip this to begin with.
+This is technically optional, and you may not need it. If you run into issues
+with hot reloading at some point, you should consider it. 
+
+Follow [[https://facebook.github.io/watchman/docs/install.html][this guide]]. Unfortunately, watchman isn't in the Ubuntu repositories and
+you will need to build it manually. If you are running Arch Linux, you can get
+it from the AUR. 
+*** Confirming that all tools are installed
+To test if everything is installed correctly, run the following commands
+
+#+BEGIN_SRC bash
+node
+yarn
+react-native
+# Optional
+watchman
+#+END_SRC
+
+Everything is good to go if none of them give you =command not found=.
+
+** Installing the Android SDK
+You should follow point 2 in the [[https://facebook.github.io/react-native/docs/getting-started.html][Getting Started]] guide. 
+The guide is *wrong*, and it has been fixed, but for some reason, even though
+this [[https://github.com/facebook/react-native/pull/10710][pull request]] has been accepted and merged, the online guide doesn't reflect
+it yet.
+
+If you followed the guide correctly, you should now have a folder called
+=Android= in your home directory, which contains a single directory called =Sdk=.
+
+Now you need to set up your ~$PATH~ environment variable. To do this, add the
+following lines to the end of your =.bashrc= or =.zshrc=, depending on what
+shell you are using.
+
+#+BEGIN_SRC bash
+export ANDROID_HOME=~/Android/Sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+#+END_SRC
+
+Now close your terminal and open a new one. Now run
+
+#+BEGIN_SRC bash
+which android
+which adb
+#+END_SRC
+
+This should return something like
+
+#+BEGIN_SRC bash
+/home/<your-username>/Android/Sdk/tools/android      
+/home/<your-username>/Android/Sdk/platform-tools/adb 
+#+END_SRC
+
+If everything worked correctly, run =android= in your terminal.
+This should bring up the Standalon SDK Manager. Here, you will need to install 
+
+- Under "Tools"
+  - Android SDK Build-tools version 23.0.1
+- Under "Android 6.0 (API 23)
+  - SDK Platform 23
+  - Intel x86 Atom_64 System Image
+
+The installation may take a while. 
+
+Once that is done, you can close the SDK manager.  
+
+** Setting up the Android Emulator
+Run =android avd= in the terminal.
+
+1. Press the Create button
+2. In "AVD Name", input whatever you want.
+3. In "Device" choose whatever  -- TODO: does this choice affect anything except resolution, etc?
+4. In "Target", choose Android 6.0
+5. In "CPU/ABI", choose Intel Atom (x86_64)
+6. In "Skin", choose whatever -- TODO: How important is this?
+
+The default values for everything else should be fine for the most part.
+It should be possible to click on the "OK" button now. Do that, and it will
+create the virtual device. When that is done, select it and press "Start" and
+then "Launch".
+
+** TODO Using your own device
+TODO
+* Running the project
+Open your terminal, and navigate to a directory where you would like have the
+project. Now run
+
+#+BEGIN_SRC bash
+git clone https://github.com/Goettcke/Imada-App/
+cd Imada-App
+yarn install
+#+END_SRC 
+
+If everything went as expected, ensure that you have the android emulator
+running(or your own device connected) and run
+
+#+BEGIN_SRC bash
+react-native run-android
+#+END_SRC
+
+This will take a minute, but if it works correctly, you will see the app pop up
+on your emulator or device. Sometimes, it will not work quite correctly, and the
+app will show you a red screen complaining about not being able to connect, or
+some such. In that case, just run
+
+#+BEGIN_SRC bash
+react-native start
+#+END_SRC
+
+When it is started, you can reload the app by pressing R twice, if you're using
+the emulator, or by shaking your phone and pressing "Reload" in the debugging
+menu that comes up. To access the debugging menu in the emulator, press 
+=Ctrl + M=.
+
+Open the debugging menu, and select "Enable Hot Reloading".
+
+Now you are finally ready to go. Open up =index.android.js= and try changing
+something, like the the contents of a =<Text>= element, and see if it doesn't
+update automatically. Hot reloading is very hard to do 100% flawlessly, so
+sometimes it will not work. In that case, just reload manually.
+
+* TODO Known issues
+** TODO Node path
+** TODO Watchman and inotify overload
