@@ -32,6 +32,22 @@ class MyButton extends Component {
     }
 }
 
+class SaldoButton extends Component {
+    static propTypes = {
+        text: React.PropTypes.string.isRequired,
+        onPress: React.PropTypes.func,
+    }
+    render() {
+        const formattedText = this.props.text.toUpperCase();
+        return (
+            <TouchableHighlight onPress={this.props.onPress} style={styles.saldoButtonStyle}>
+                <Text style={styles.saldoButtonTextStyle}>{formattedText}</Text>
+            </TouchableHighlight>
+        );
+    }
+
+}
+
 export default class testproject extends Component {
 
     constructor(props) {
@@ -40,25 +56,39 @@ export default class testproject extends Component {
     }
 
     changeState(text) {
-        this.setState({textToShow: text});
+        this.setState({textToShow: text}); 
     }
 
     render() {
         var url = { uri: "http://www.imada.sdu.dk/~jogoe12/images/IMADA_FAGRAAD_LOGO2.png" }
         return (
             <View style={styles.mainContainer}>
-                <View style={{flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "grey"}}>
-                    <Text style={{fontSize: 50}}>
+
+                <View style={{flexDirection:"column", flex: 0.1, backgroundColor: "#222230"}}>
+
+
+
+                        <SaldoButton  onPress={() => this.changeState("Du har nu betalt din saldo")} text="Saldo: -1261"/>
+
+
+
+                    {/* The view below is just to make a visible line below the saldo. */}
+                    <View style={{flexDirection: 'column', height: 2, padding: 0, backgroundColor: "purple"}}/>
+                </View>
+
+
+                <View style={{flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#222230"}}>
+                    <Text style={{fontSize: 50, color:'white'}}>
                         {this.state.textToShow}
                     </Text>
                 </View>
-                <View style={{flex: 1}}>
+                <View style={{flex: 0.48}}>
                     <View style={styles.buttonContainer}>
                         <View style={styles.innerContainer}>
-                            <MyButton onPress={() => this.changeState("Button 1")} text="Button 1"/>
+                            <MyButton onPress={() => this.changeState("Button 1")} text="Sodavand"/>
                         </View>
                         <View style={styles.innerContainer}>
-                            <MyButton onPress={() => this.changeState("Button 2")} text="Button 2"/>
+                            <MyButton onPress={() => this.changeState("Button 2")} text="Øl"/>
                         </View>
                     </View>
                     <View style={styles.buttonContainer}>
@@ -83,11 +113,12 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         elevation: 4,
-        backgroundColor: '#2196F3',
+        backgroundColor: 'purple',
         borderRadius: 6,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
+
     },
     buttonTextStyle: {
         textAlign: 'center',
@@ -99,10 +130,26 @@ const styles = StyleSheet.create({
         flex: 1,
         borderColor: "purple",
         alignItems: "stretch",
+        padding: 8,
+        backgroundColor: "#222230",
     },
     buttonContainer: {
         flex: 1,
         flexDirection: "row",
+    },
+    saldoButtonStyle: {
+        backgroundColor: '#222230',
+        borderRadius: 4,
+        flex: 1,
+        alignItems: "flex-end",
+        justifyContent: "center",
+    },
+    saldoButtonTextStyle: {
+        textAlign: 'right',
+        color: 'white',
+        padding: 8,
+        fontSize: 15,
+        fontWeight: '500',
     }
 });
 
