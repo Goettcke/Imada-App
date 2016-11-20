@@ -48,6 +48,8 @@ class SaldoButton extends Component {
 
 }
 
+const darkBlue = "#222230";
+
 export default class testproject extends Component {
 
     constructor(props) {
@@ -64,20 +66,12 @@ export default class testproject extends Component {
         return (
             <View style={styles.mainContainer}>
 
-                <View style={{flexDirection:"column", flex: 0.1, backgroundColor: "#222230"}}>
-
-
-
+                <View style={{borderBottomWidth: 2, borderBottomColor: "purple", flexDirection:"column", flex: 0.1, backgroundColor: darkBlue}}>
                         <SaldoButton  onPress={() => this.changeState("Du har nu betalt din saldo")} text="Saldo: -1261"/>
-
-
-
-                    {/* The view below is just to make a visible line below the saldo. */}
-                    <View style={{flexDirection: 'column', height: 2, padding: 0, backgroundColor: "purple"}}/>
                 </View>
 
 
-                <View style={{flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#222230"}}>
+                <View style={{flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: darkBlue}}>
                     <Text style={{fontSize: 50, color:'white'}}>
                         {this.state.textToShow}
                     </Text>
@@ -131,7 +125,7 @@ const styles = StyleSheet.create({
         borderColor: "purple",
         alignItems: "stretch",
         padding: 8,
-        backgroundColor: "#222230",
+        backgroundColor: darkBlue,
     },
     buttonContainer: {
         flex: 1,
