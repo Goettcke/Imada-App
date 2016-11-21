@@ -58,7 +58,8 @@ class SaldoButton extends Component {
 
 }
 
-const darkBlue = '#222230';
+/* const darkBlue = '#222230';*/
+const darkBlue = 'white';
 
 
 export default class testproject extends Component {
@@ -167,7 +168,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     saldoButtonStyle: {
-        backgroundColor: '#222230',
         borderRadius: 4,
         flex: 1,
         alignItems: 'flex-end',
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     },
     saldoButtonTextStyle: {
         textAlign: 'right',
-        color: 'white',
+        color: 'black',
         padding: 8,
         fontSize: 15,
         fontWeight: '500',

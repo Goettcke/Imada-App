@@ -19,28 +19,54 @@ import moment from 'moment';
 
 import {imadaStudentsGroupId} from './constants.js';
 
+const textColor = 'black';
+
 const styles = StyleSheet.create({
     scrollViewStyle: {
         justifyContent: 'center',
         alignItems: 'stretch',
     },
-    eventStyle: {
-        color: 'white',
-        fontSize: 15
+    eventTitle: {
+        color: textColor,
+        fontSize: 20,
+    },
+    highlight: {
+        borderWidth: 1,
+        borderColor: textColor,
     },
     notLoggedIn: {
-        color: 'white',
+        color: textColor,
         fontSize: 20,
+    },
+    smallText: {
+        fontSize: 12,
+        color: textColor
     },
     eventContainer: {
         borderWidth: 1,
-        borderColor: "purple",
+        borderColor: 'purple',
         flex: 1,
-        flexDirection: "column",
+        flexDirection: 'row',
+        shadowColor: 'grey',
+        elevation: 3,
+        backgroundColor: 'transparent',
+        paddingLeft: 10,
     },
-    smallText: {
-        fontSize: 10,
-        color: 'white'
+    eventInfoContainer: {
+        flex: 3,
+        height: 100,
+        /* borderColor: textColor,*/
+    },
+    eventDescContainer: {
+        flex: 2,
+        borderColor: textColor,
+        overflow: 'hidden',
+        maxHeight: 100,
+    },
+    eventDescText: {
+        overflow: 'hidden',
+        opacity: 0.5,
+        color: textColor,
     }
 });
 
@@ -114,7 +140,7 @@ export default class ImadaEventView extends Component {
         if (ev.place && ev.place.name) {
             formattedPlace = ev.place.name;
         }
-        var defaultFormat = 'dddd, MMM Do, h a';
+        var defaultFormat = 'dddd, MMM Do, HH:mm';
         var startDate = moment(ev.start_time);
         var endDate  = moment(ev.end_time);
         var displayDate;
@@ -123,7 +149,7 @@ export default class ImadaEventView extends Component {
         } else if (startDate.date() === endDate.date()) {
             displayDate = startDate.format(defaultFormat)
                         + ' - '
-                        + endDate.format('h a');
+                        + endDate.format('HH:mm');
         } else {
             displayDate = startDate.format(defaultFormat)
                         + ' - '
@@ -134,9 +160,16 @@ export default class ImadaEventView extends Component {
         return (
             <TouchableHighlight key={ev.id.toString()} onPress={() => Linking.openURL(evUrl)}>
                 <View style={styles.eventContainer}>
-                    <Text style={styles.eventStyle}>{ev.name}</Text>
-                    <Text style={styles.smallText}>Location: {formattedPlace}</Text>
-                    <Text style={styles.smallText}>Date: {displayDate}</Text>
+                    <View style={styles.eventInfoContainer}>
+                        <Text style={[styles.eventTitle, {alignSelf: 'flex-start'}]}>{ev.name}</Text>
+                        <Text style={styles.smallText}>{formattedPlace}</Text>
+                        <View style={{flex: 1, flexDirection: 'row'}}>
+                            <Text style={[ styles.smallText, {alignSelf: 'flex-end'}]}>{displayDate}</Text>
+                        </View>
+                    </View>
+                    <View style={styles.eventDescContainer}>
+                        <Text style={styles.eventDescText}>{ev.description}</Text>
+                    </View>
                 </View>
             </TouchableHighlight>
         );
