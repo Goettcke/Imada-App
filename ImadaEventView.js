@@ -4,7 +4,9 @@ import {
     Text,
     View,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    TouchableHighlight,
+    Linking,
 } from 'react-native';
 
 import {
@@ -44,6 +46,10 @@ const styles = StyleSheet.create({
 
 export default class ImadaEventView extends Component {
 
+    static propTypes = {
+        fbLoginStatus: React.PropTypes.bool.isRequired,
+    }
+
     constructor(props) {
         super(props);
         // This is required to bind the current `this` context to the function
@@ -62,20 +68,7 @@ export default class ImadaEventView extends Component {
             fbEvents: [],
             refreshing: false,
         };
-    }
-
-    componentDidMount() {
-        this.checkFBLoginStatus();
-    }
-
-    async checkFBLoginStatus() {
-        var result = await AccessToken.getCurrentAccessToken();
-        console.log('checkFBLoginStatus');
-        if (result) {
-            this.setState({fbLoginStatus: true});
-        } else {
-            this.setState({fbLoginStatus: false});
-        }
+        this.performRequest();
     }
 
     renderNotLoggedIn() {
@@ -86,11 +79,23 @@ export default class ImadaEventView extends Component {
         );
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.fbLoginStatus !== this.props.fbLoginStatus) {
+            console.log("will do request");
+            this.performRequest();
+        }
+    }
+
     async performRequest() {
         // TODO: Can we reuse this manager somehow? Hardly any documentation about it
-        var rm = new GraphRequestManager();
-        this.setState({refreshing: true});
-        await rm.addRequest(this.state.eventRequest).start();
+        var result = await AccessToken.getCurrentAccessToken();
+        if (result) {
+            var rm = new GraphRequestManager();
+            this.setState({refreshing: true, fbLoginStatus: true});
+            await rm.addRequest(this.state.eventRequest).start();
+        } else {
+            this.setState({fbLoginStatus: false});
+        }
     }
 
     setEventList(error, result) {
@@ -125,12 +130,15 @@ export default class ImadaEventView extends Component {
                         + endDate.format(defaultFormat);
         }
 
+        var evUrl = 'https://facebook.com/' + ev.id.toString();
         return (
-            <View style={styles.eventContainer} key={ev.id.toString()}>
-                <Text style={styles.eventStyle}>{ev.name}</Text>
-                <Text style={styles.smallText}>Location: {formattedPlace}</Text>
-                <Text style={styles.smallText}>Date: {displayDate}</Text>
-            </View>
+            <TouchableHighlight key={ev.id.toString()} onPress={() => Linking.openURL(evUrl)}>
+                <View style={styles.eventContainer}>
+                    <Text style={styles.eventStyle}>{ev.name}</Text>
+                    <Text style={styles.smallText}>Location: {formattedPlace}</Text>
+                    <Text style={styles.smallText}>Date: {displayDate}</Text>
+                </View>
+            </TouchableHighlight>
         );
     }
 
@@ -150,7 +158,7 @@ export default class ImadaEventView extends Component {
     }
 
     render() {
-        if (this.state.fbLoginStatus) {
+        if (this.props.fbLoginStatus) {
             return this.renderEvents();
         } else {
             return this.renderNotLoggedIn();

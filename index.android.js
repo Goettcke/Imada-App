@@ -69,32 +69,42 @@ export default class testproject extends Component {
         this.state = {
             fbLoginStatus: false
         };
+        this.updateLoginStatus();
     }
 
     facebookLogin = (error, result) => {
         if (error) {
             console.log('login has error: ' + result.error);
+            this.updateLoginStatus();
         } else if (result.isCancelled) {
             console.log('login is cancelled.');
+            this.updateLoginStatus();
         } else {
-            AccessToken.getCurrentAccessToken().then(
-                (data) => {
-                    console.log('Got access token:' + data.accessToken.toString());
-                    this.setState({fbLoginStatus: true});
-                }
-            );
+            console.log('login succeeded');
+            this.updateLoginStatus();
         }
     }
 
     facebookLogout = () => {
-        this.setState({fbLoginStatus: true});
+        this.setState({fbLoginStatus: false});
+    }
+
+    async updateLoginStatus () {
+        var result = await AccessToken.getCurrentAccessToken();
+        if (result) {
+            console.log('Logged in');
+            this.setState({fbLoginStatus: true});
+        } else {
+            console.log('Logged out');
+            this.setState({fbLoginStatus: false});
+        }
     }
 
     render() {
         return (
             <View style={styles.mainContainer}>
                 <View style={{borderBottomWidth: 2, borderBottomColor: 'purple', flexDirection:'row', flex: 1, backgroundColor: darkBlue}}>
-                    <LoginButton onLoginFinished={this.loginToFacebook} onLogoutFinished={this.facebookLogout}/>
+                    <LoginButton onLoginFinished={this.facebookLogin} onLogoutFinished={this.facebookLogout}/>
                     <SaldoButton text="Saldo: -1261"/>
                 </View>
 
