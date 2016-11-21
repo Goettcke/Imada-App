@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         shadowColor: 'grey',
         elevation: 3,
         backgroundColor: 'transparent',
-        paddingLeft: 10,
+        paddingLeft: 5,
     },
     eventInfoContainer: {
         flex: 3,
@@ -168,7 +168,7 @@ export default class ImadaEventView extends Component {
                         </View>
                     </View>
                     <View style={styles.eventDescContainer}>
-                        <Text style={styles.eventDescText}>{ev.description}</Text>
+                        <Text ellipsizeMode="tail" numberOfLines={5} style={styles.eventDescText}>{ev.description}</Text>
                     </View>
                 </View>
             </TouchableHighlight>
