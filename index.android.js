@@ -9,13 +9,23 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    Image,
+    /* Image,*/
     View,
     ScrollView,
-    Button,
-    Dimensions,
+    /* Alert,*/
+    /* Button,
+     * Dimensions,*/
     TouchableHighlight
 } from 'react-native';
+
+import {
+    GraphRequest,
+    GraphRequestManager,
+    LoginButton,
+    AccessToken,
+} from 'react-native-fbsdk';
+
+import ImadaEventView from './ImadaEventView.js';
 
 class MyButton extends Component {
     static propTypes = {
@@ -48,49 +58,64 @@ class SaldoButton extends Component {
 
 }
 
-const darkBlue = "#222230";
+const darkBlue = '#222230';
+
 
 export default class testproject extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { textToShow: "Button 1" };
+
+        this.state = {
+            fbLoginStatus: false
+        };
     }
 
-    changeState(text) {
-        this.setState({textToShow: text}); 
+    facebookLogin = (error, result) => {
+        if (error) {
+            console.log('login has error: ' + result.error);
+        } else if (result.isCancelled) {
+            console.log('login is cancelled.');
+        } else {
+            AccessToken.getCurrentAccessToken().then(
+                (data) => {
+                    console.log('Got access token:' + data.accessToken.toString());
+                    this.setState({fbLoginStatus: true});
+                }
+            );
+        }
+    }
+
+    facebookLogout = () => {
+        this.setState({fbLoginStatus: true});
     }
 
     render() {
-        var url = { uri: "http://www.imada.sdu.dk/~jogoe12/images/IMADA_FAGRAAD_LOGO2.png" }
         return (
             <View style={styles.mainContainer}>
-
-                <View style={{borderBottomWidth: 2, borderBottomColor: "purple", flexDirection:"column", flex: 0.1, backgroundColor: darkBlue}}>
-                        <SaldoButton  onPress={() => this.changeState("Du har nu betalt din saldo")} text="Saldo: -1261"/>
+                <View style={{borderBottomWidth: 2, borderBottomColor: 'purple', flexDirection:'row', flex: 1, backgroundColor: darkBlue}}>
+                    <LoginButton onLoginFinished={this.loginToFacebook} onLogoutFinished={this.facebookLogout}/>
+                    <SaldoButton text="Saldo: -1261"/>
                 </View>
 
-
-                <View style={{flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: darkBlue}}>
-                    <Text style={{fontSize: 50, color:'white'}}>
-                        {this.state.textToShow}
-                    </Text>
+                <View style={{flex: 10, backgroundColor: darkBlue}}>
+                    <ImadaEventView fbLoginStatus={this.state.fbLoginStatus}/>
                 </View>
-                <View style={{flex: 0.48}}>
+                <View style={{flex: 5}}>
                     <View style={styles.buttonContainer}>
                         <View style={styles.innerContainer}>
-                            <MyButton onPress={() => this.changeState("Button 1")} text="Sodavand"/>
+                            <MyButton text="Sodavand"/>
                         </View>
                         <View style={styles.innerContainer}>
-                            <MyButton onPress={() => this.changeState("Button 2")} text="Øl"/>
+                            <MyButton text="Øl"/>
                         </View>
                     </View>
                     <View style={styles.buttonContainer}>
                         <View style={styles.innerContainer}>
-                            <MyButton onPress={() => this.changeState("Button 3")} text="Button 3"/>
+                            <MyButton text="Button 3"/>
                         </View>
                         <View style={styles.innerContainer}>
-                            <MyButton onPress={() => this.changeState("Button 4")} text="Button 4"/>
+                            <MyButton text="Button 4"/>
                         </View>
                     </View>
                 </View>
@@ -110,8 +135,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'purple',
         borderRadius: 6,
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
 
     },
     buttonTextStyle: {
@@ -122,21 +147,21 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         flex: 1,
-        borderColor: "purple",
-        alignItems: "stretch",
+        borderColor: 'purple',
+        alignItems: 'stretch',
         padding: 8,
         backgroundColor: darkBlue,
     },
     buttonContainer: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: 'row',
     },
     saldoButtonStyle: {
         backgroundColor: '#222230',
         borderRadius: 4,
         flex: 1,
-        alignItems: "flex-end",
-        justifyContent: "center",
+        alignItems: 'flex-end',
+        justifyContent: 'center',
     },
     saldoButtonTextStyle: {
         textAlign: 'right',
