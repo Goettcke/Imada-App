@@ -13,21 +13,32 @@ import {
     AccessToken,
 } from 'react-native-fbsdk';
 
+import moment from 'moment';
 
 import {imadaStudentsGroupId} from './constants.js';
 
 const styles = StyleSheet.create({
     scrollViewStyle: {
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'stretch',
     },
     eventStyle: {
         color: 'white',
-        fontSize: 20
+        fontSize: 15
     },
     notLoggedIn: {
         color: 'white',
         fontSize: 20,
+    },
+    eventContainer: {
+        borderWidth: 1,
+        borderColor: "purple",
+        flex: 1,
+        flexDirection: "column",
+    },
+    smallText: {
+        fontSize: 10,
+        color: 'white'
     }
 });
 
@@ -93,11 +104,44 @@ export default class ImadaEventView extends Component {
         }
     }
 
+    renderEvent(ev) {
+        var formattedPlace = 'N/A';
+        if (ev.place && ev.place.name) {
+            formattedPlace = ev.place.name;
+        }
+        var defaultFormat = 'dddd, MMM Do, h a';
+        var startDate = moment(ev.start_time);
+        var endDate  = moment(ev.end_time);
+        var displayDate;
+        if (ev.end_time == null) {
+            displayDate = startDate.format(defaultFormat);
+        } else if (startDate.date() === endDate.date()) {
+            displayDate = startDate.format(defaultFormat)
+                        + ' - '
+                        + endDate.format('h a');
+        } else {
+            displayDate = startDate.format(defaultFormat)
+                        + ' - '
+                        + endDate.format(defaultFormat);
+        }
+
+        return (
+            <View style={styles.eventContainer} key={ev.id.toString()}>
+                <Text style={styles.eventStyle}>{ev.name}</Text>
+                <Text style={styles.smallText}>Location: {formattedPlace}</Text>
+                <Text style={styles.smallText}>Date: {displayDate}</Text>
+            </View>
+        );
+    }
+
     renderEvents() {
-        var events = this.state.fbEvents.map((ev) => {
-            return <Text style={styles.eventStyle} key={ev.id.toString()}>{ev.name}</Text>;
-        });
-        var refreshControl = <RefreshControl refreshing={this.state.refreshing} onRefresh={this.performRequest}/>;
+        var events = this.state.fbEvents.map(this.renderEvent);
+        var refreshControl =
+            <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.performRequest}
+            />;
+
         return (
             <ScrollView refreshControl={refreshControl} contentContainerStyle={styles.scrollViewStyle}>
                 {events}
