@@ -6,20 +6,21 @@ import {
     ScrollView,
     RefreshControl,
     TouchableHighlight,
+    TouchableNativeFeedback,
     Linking,
+    Alert
 } from 'react-native';
 
 import {
     GraphRequest,
     GraphRequestManager,
     AccessToken,
+    LoginManager,
 } from 'react-native-fbsdk';
 
 import moment from 'moment';
 
-import {imadaStudentsGroupId} from './constants.js';
-
-const textColor = 'black';
+import {imadaStudentsGroupId, mainTextColor} from './constants.js';
 
 const styles = StyleSheet.create({
     scrollViewStyle: {
@@ -27,46 +28,45 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
     },
     eventTitle: {
-        color: textColor,
+        color: mainTextColor,
         fontSize: 20,
     },
     highlight: {
         borderWidth: 1,
-        borderColor: textColor,
-    },
-    notLoggedIn: {
-        color: textColor,
-        fontSize: 20,
+        borderColor: mainTextColor,
     },
     smallText: {
         fontSize: 12,
-        color: textColor
+        color: mainTextColor
     },
     eventContainer: {
-        borderWidth: 1,
-        borderColor: 'purple',
+        /* borderWidth: 1,*/
+        /* borderColor: 'purple',*/
         flex: 1,
         flexDirection: 'row',
         shadowColor: 'grey',
-        elevation: 3,
-        backgroundColor: 'transparent',
+        backgroundColor: '#eeeeee',
+        elevation: 5,
         paddingLeft: 5,
+        marginBottom: 10,
+        marginLeft: 5,
+        marginRight: 5,
     },
     eventInfoContainer: {
         flex: 3,
         height: 100,
-        /* borderColor: textColor,*/
+        /* borderColor: mainTextColor,*/
     },
     eventDescContainer: {
         flex: 2,
-        borderColor: textColor,
+        borderColor: mainTextColor,
         overflow: 'hidden',
         maxHeight: 100,
     },
     eventDescText: {
         overflow: 'hidden',
         opacity: 0.5,
-        color: textColor,
+        color: mainTextColor,
     }
 });
 
@@ -97,17 +97,10 @@ export default class ImadaEventView extends Component {
         this.performRequest();
     }
 
-    renderNotLoggedIn() {
-        return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={styles.notLoggedIn}>Log ind med facebook for at se begivenheder</Text>
-            </View>
-        );
-    }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.fbLoginStatus !== this.props.fbLoginStatus) {
-            console.log("will do request");
+            console.log('will do request');
             this.performRequest();
         }
     }
@@ -158,7 +151,7 @@ export default class ImadaEventView extends Component {
 
         var evUrl = 'https://facebook.com/' + ev.id.toString();
         return (
-            <TouchableHighlight key={ev.id.toString()} onPress={() => Linking.openURL(evUrl)}>
+            <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()} key={ev.id.toString()}>
                 <View style={styles.eventContainer}>
                     <View style={styles.eventInfoContainer}>
                         <Text style={[styles.eventTitle, {alignSelf: 'flex-start'}]}>{ev.name}</Text>
@@ -171,7 +164,7 @@ export default class ImadaEventView extends Component {
                         <Text ellipsizeMode="tail" numberOfLines={5} style={styles.eventDescText}>{ev.description}</Text>
                     </View>
                 </View>
-            </TouchableHighlight>
+            </TouchableNativeFeedback>
         );
     }
 

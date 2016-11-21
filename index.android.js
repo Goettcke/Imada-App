@@ -15,7 +15,8 @@ import {
     /* Alert,*/
     /* Button,
      * Dimensions,*/
-    TouchableHighlight
+    TouchableHighlight,
+    TouchableNativeFeedback,
 } from 'react-native';
 
 import {
@@ -23,9 +24,11 @@ import {
     GraphRequestManager,
     LoginButton,
     AccessToken,
+    LoginManager,
 } from 'react-native-fbsdk';
 
 import ImadaEventView from './ImadaEventView.js';
+import {mainTextColor} from './constants.js';
 
 class MyButton extends Component {
     static propTypes = {
@@ -35,9 +38,11 @@ class MyButton extends Component {
     render() {
         const formattedText = this.props.text.toUpperCase();
         return (
-            <TouchableHighlight onPress={this.props.onPress} style={styles.buttonStyle}>
-                <Text style={styles.buttonTextStyle}>{formattedText}</Text>
-            </TouchableHighlight>
+            <TouchableNativeFeedback onPress={this.props.onPress}>
+                <View style={[styles.buttonStyle, this.props.style]}>
+                    <Text style={[styles.buttonTextStyle, this.props.textStyle]}>{formattedText}</Text>
+                </View>
+            </TouchableNativeFeedback>
         );
     }
 }
@@ -59,7 +64,7 @@ class SaldoButton extends Component {
 }
 
 /* const darkBlue = '#222230';*/
-const darkBlue = 'white';
+const darkBlue = '#eeeeee';
 
 
 export default class testproject extends Component {
@@ -70,27 +75,13 @@ export default class testproject extends Component {
         this.state = {
             fbLoginStatus: false
         };
+        this.updateLoginStatus = this.updateLoginStatus.bind(this);
+        this.facebookLogin = this.facebookLogin.bind(this);
+        this.facebookLogout = this.facebookLogout.bind(this);
         this.updateLoginStatus();
     }
 
-    facebookLogin = (error, result) => {
-        if (error) {
-            console.log('login has error: ' + result.error);
-            this.updateLoginStatus();
-        } else if (result.isCancelled) {
-            console.log('login is cancelled.');
-            this.updateLoginStatus();
-        } else {
-            console.log('login succeeded');
-            this.updateLoginStatus();
-        }
-    }
-
-    facebookLogout = () => {
-        this.setState({fbLoginStatus: false});
-    }
-
-    async updateLoginStatus () {
+    updateLoginStatus = async () => {
         var result = await AccessToken.getCurrentAccessToken();
         if (result) {
             console.log('Logged in');
@@ -101,16 +92,43 @@ export default class testproject extends Component {
         }
     }
 
+    async facebookLogin() {
+        var res = await LoginManager.logInWithReadPermissions(['public_profile']);
+        await this.updateLoginStatus();
+        console.log(res);
+    }
+
+    async facebookLogout() {
+        var res = await LoginManager.logOut();
+        await this.updateLoginStatus();
+        console.log(res);
+    }
+
+    renderEventView() {
+        if (this.state.fbLoginStatus) {
+            return <ImadaEventView fbLoginStatus={this.state.fbLoginStatus}/>;
+        } else {
+            return (
+                <TouchableNativeFeedback onPress={this.facebookLogin}>
+                    <View style={styles.loggedOutContainer}>
+                        <Text style={styles.loggedOutText}>
+                            Log in with facebook
+                        </Text>
+                    </View>
+                </TouchableNativeFeedback>
+            );
+        }
+    }
+
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View style={{borderBottomWidth: 2, borderBottomColor: 'purple', flexDirection:'row', flex: 1, backgroundColor: darkBlue}}>
-                    <LoginButton onLoginFinished={this.facebookLogin} onLogoutFinished={this.facebookLogout}/>
+                <View style={styles.topView}>
+                    <MyButton onPress={this.facebookLogout} style={styles.settingsButton} textStyle={styles.settingsButtonText} text="Settings"/>
                     <SaldoButton text="Saldo: -1261"/>
                 </View>
-
                 <View style={{flex: 10, backgroundColor: darkBlue}}>
-                    <ImadaEventView fbLoginStatus={this.state.fbLoginStatus}/>
+                    {this.renderEventView()}
                 </View>
                 <View style={{flex: 5}}>
                     <View style={styles.buttonContainer}>
@@ -139,7 +157,7 @@ export default class testproject extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: darkBlue,
     },
     buttonStyle: {
         elevation: 4,
@@ -149,6 +167,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
 
+    },
+    topView: {
+        /* borderBottomWidth: 2,
+         * borderBottomColor: 'purple',*/
+        flexDirection:'row',
+        flex: 1,
+        backgroundColor: darkBlue
+    },
+    settingsButton: {
+        backgroundColor: 'purple',
+        /* marginTop: 10,*/
+        /* marginBottom: 10,*/
+        /* paddingBottom: 10,
+         * paddingTop: 10,*/
+    },
+    settingsButtonText: {
+        fontSize: 20
     },
     buttonTextStyle: {
         textAlign: 'center',
@@ -164,6 +199,7 @@ const styles = StyleSheet.create({
         backgroundColor: darkBlue,
     },
     buttonContainer: {
+        elevation: 4,
         flex: 1,
         flexDirection: 'row',
     },
@@ -179,7 +215,20 @@ const styles = StyleSheet.create({
         padding: 8,
         fontSize: 15,
         fontWeight: '500',
-    }
+    },
+    loggedOutText: {
+        color: mainTextColor,
+        fontSize: 25,
+        textShadowColor: 'black',
+        /* borderColor: 'black',
+         * borderWidth: 1,*/
+        opacity: 0.5,
+    },
+    loggedOutContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 AppRegistry.registerComponent('testproject', () => testproject);
