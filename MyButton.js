@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
     AppRegistry,
@@ -27,13 +21,11 @@ import {
     LoginManager,
 } from 'react-native-fbsdk';
 
-import MyButton from './MyButton.js';
-import SettingsView from './SettingsView.js';
 import MainView from './MainView.js';
 import ImadaEventView from './ImadaEventView.js';
 import {mainTextColor, darkBlue} from './constants.js';
 
-class SaldoButton extends Component {
+export default class MyButton extends Component {
     static propTypes = {
         text: React.PropTypes.string.isRequired,
         onPress: React.PropTypes.func,
@@ -41,54 +33,14 @@ class SaldoButton extends Component {
     render() {
         const formattedText = this.props.text.toUpperCase();
         return (
-            <TouchableHighlight onPress={this.props.onPress} style={styles.saldoButtonStyle}>
-                <Text style={styles.saldoButtonTextStyle}>{formattedText}</Text>
-            </TouchableHighlight>
-        );
-    }
-
-}
-
-export default class testproject extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            view: <MainView/>,
-            switchView: this.switchToSettingsView,
-        };
-    }
-
-    switchToMainView = () => {
-        this.setState({
-            switchView: this.switchToSettingsView,
-            view: <MainView/>,
-        });
-    }
-
-    switchToSettingsView = () => {
-        this.setState({
-            switchView: this.switchToMainView,
-            view: <SettingsView/>,
-        });
-    }
-
-    render() {
-        return (
-            <View style={styles.mainContainer}>
-                <View style={styles.topView}>
-                    <MyButton onPress={this.state.switchView} style={styles.settingsButton} textStyle={styles.settingsButtonText} text="Settings"/>
-                    <SaldoButton text="Saldo: -1261"/>
+            <TouchableNativeFeedback onPress={this.props.onPress}>
+                <View style={[styles.buttonStyle, this.props.style]}>
+                    <Text style={[styles.buttonTextStyle, this.props.textStyle]}>{formattedText}</Text>
                 </View>
-                <View style={{flex: 10}}>
-                    {this.state.view}
-                </View>
-            </View>
+            </TouchableNativeFeedback>
         );
     }
 }
-
 
 const styles = StyleSheet.create({
     mainContainer: {
@@ -166,5 +118,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
-
-AppRegistry.registerComponent('testproject', () => testproject);
