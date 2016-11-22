@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     /* Image,*/
     View,
-    ScrollView,
     /* Alert,*/
     /* Button,
      * Dimensions,*/
-    TouchableHighlight,
     TouchableNativeFeedback,
+    LayoutAnimation,
 } from 'react-native';
 
 import {
-    GraphRequest,
-    GraphRequestManager,
-    LoginButton,
     AccessToken,
     LoginManager,
 } from 'react-native-fbsdk';
@@ -27,7 +22,6 @@ import {mainTextColor, darkBlue} from './constants.js';
 
 
 export default class MainView extends Component {
-    
     constructor(props) {
         super(props);
 
@@ -44,6 +38,7 @@ export default class MainView extends Component {
         var result = await AccessToken.getCurrentAccessToken();
         if (result) {
             console.log('Logged in');
+            LayoutAnimation.easeInEaseOut();
             this.setState({fbLoginStatus: true});
         } else {
             console.log('Logged out');
@@ -54,13 +49,11 @@ export default class MainView extends Component {
     async facebookLogin() {
         var res = await LoginManager.logInWithReadPermissions(['public_profile']);
         await this.updateLoginStatus();
-        console.log(res);
     }
 
     async facebookLogout() {
         var res = await LoginManager.logOut();
         await this.updateLoginStatus();
-        console.log(res);
     }
 
     renderEventView() {
@@ -110,33 +103,6 @@ export default class MainView extends Component {
 }
 
 const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        backgroundColor: darkBlue,
-    },
-    buttonStyle: {
-
-        backgroundColor: 'purple',
-        borderRadius: 6,
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-
-    },
-    topView: {
-        /* borderBottomWidth: 2,
-         * borderBottomColor: 'purple',*/
-        flexDirection:'row',
-        flex: 1,
-        backgroundColor: darkBlue
-    },
-    settingsButton: {
-        backgroundColor: 'purple',
-        /* marginTop: 10,*/
-        /* marginBottom: 10,*/
-        /* paddingBottom: 10,
-         * paddingTop: 10,*/
-    },
     settingsButtonText: {
         fontSize: 20
     },
@@ -157,19 +123,6 @@ const styles = StyleSheet.create({
         elevation: 4,
         flex: 1,
         flexDirection: 'row',
-    },
-    saldoButtonStyle: {
-        borderRadius: 4,
-        flex: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-    },
-    saldoButtonTextStyle: {
-        textAlign: 'right',
-        color: 'black',
-        padding: 8,
-        fontSize: 15,
-        fontWeight: '500',
     },
     loggedOutText: {
         color: mainTextColor,

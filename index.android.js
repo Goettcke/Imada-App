@@ -11,27 +11,17 @@ import {
     Text,
     /* Image,*/
     View,
-    ScrollView,
     /* Alert,*/
     /* Button,
      * Dimensions,*/
     TouchableHighlight,
-    TouchableNativeFeedback,
+    LayoutAnimation,
 } from 'react-native';
-
-import {
-    GraphRequest,
-    GraphRequestManager,
-    LoginButton,
-    AccessToken,
-    LoginManager,
-} from 'react-native-fbsdk';
 
 import MyButton from './MyButton.js';
 import SettingsView from './SettingsView.js';
 import MainView from './MainView.js';
-import ImadaEventView from './ImadaEventView.js';
-import {mainTextColor, darkBlue} from './constants.js';
+import {darkBlue} from './constants.js';
 
 class SaldoButton extends Component {
     static propTypes = {
@@ -58,6 +48,10 @@ export default class testproject extends Component {
             view: <MainView/>,
             switchView: this.switchToSettingsView,
         };
+    }
+
+    componentWillUpdate() {
+        LayoutAnimation.easeInEaseOut();
     }
 
     switchToMainView = () => {
@@ -95,15 +89,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: darkBlue,
     },
-    buttonStyle: {
-
-        backgroundColor: 'purple',
-        borderRadius: 6,
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-
-    },
     topView: {
         /* borderBottomWidth: 2,
          * borderBottomColor: 'purple',*/
@@ -121,24 +106,6 @@ const styles = StyleSheet.create({
     settingsButtonText: {
         fontSize: 20
     },
-    buttonTextStyle: {
-        textAlign: 'center',
-        color: 'white',
-        padding: 8,
-        fontWeight: '500',
-    },
-    innerContainer: {
-        flex: 1,
-        borderColor: 'purple',
-        alignItems: 'stretch',
-        padding: 8,
-        backgroundColor: darkBlue,
-    },
-    buttonContainer: {
-        elevation: 4,
-        flex: 1,
-        flexDirection: 'row',
-    },
     saldoButtonStyle: {
         borderRadius: 4,
         flex: 1,
@@ -151,19 +118,6 @@ const styles = StyleSheet.create({
         padding: 8,
         fontSize: 15,
         fontWeight: '500',
-    },
-    loggedOutText: {
-        color: mainTextColor,
-        fontSize: 25,
-        textShadowColor: 'black',
-        /* borderColor: 'black',
-         * borderWidth: 1,*/
-        opacity: 0.5,
-    },
-    loggedOutContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
 });
 
