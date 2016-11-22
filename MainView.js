@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
-    /* Image,*/
+    Image,
     View,
-    /* Alert,*/
-    /* Button,
-     * Dimensions,*/
     TouchableNativeFeedback,
     LayoutAnimation,
 } from 'react-native';

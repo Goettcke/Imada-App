@@ -47,17 +47,15 @@ export default class testproject extends Component {
         this.state = {
             view: <MainView/>,
             switchView: this.switchToSettingsView,
+            menuButtonText: "Settings"
         };
-    }
-
-    componentWillUpdate() {
-        LayoutAnimation.easeInEaseOut();
     }
 
     switchToMainView = () => {
         this.setState({
             switchView: this.switchToSettingsView,
             view: <MainView/>,
+            menuButtonText: "Settings",
         });
     }
 
@@ -65,6 +63,7 @@ export default class testproject extends Component {
         this.setState({
             switchView: this.switchToMainView,
             view: <SettingsView/>,
+            menuButtonText: "Main",
         });
     }
 
@@ -97,11 +96,12 @@ const styles = StyleSheet.create({
         backgroundColor: darkBlue
     },
     settingsButton: {
-        backgroundColor: 'purple',
-        /* marginTop: 10,*/
-        /* marginBottom: 10,*/
-        /* paddingBottom: 10,
-         * paddingTop: 10,*/
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        elevation: 4,
+        backgroundColor: 'white',
+        justifyContent: 'space-between',
     },
     settingsButtonText: {
         fontSize: 20
