@@ -9,12 +9,10 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    /* Image,*/
     View,
-    /* Alert,*/
-    /* Button,
-     * Dimensions,*/
+    Image,
     TouchableHighlight,
+    TouchableNativeFeedback,
     LayoutAnimation,
 } from 'react-native';
 
@@ -71,7 +69,15 @@ export default class testproject extends Component {
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.topView}>
-                    <MyButton onPress={this.state.switchView} style={styles.settingsButton} textStyle={styles.settingsButtonText} text="Settings"/>
+                    <TouchableNativeFeedback onPress={this.state.switchView}>
+                        <View style={styles.settingsButton}>
+                            <Image style={{width: 50, height: 50}} source={require('./imada-logo.png')}/>
+                            <Text style={styles.settingsButtonText}>
+                                {this.state.menuButtonText}
+                            </Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                    {/* <MyButton onPress={this.state.switchView} style={styles.settingsButton} textStyle={styles.settingsButtonText} text="Settings"/> */}
                     <SaldoButton text="Saldo: -1261"/>
                 </View>
                 <View style={{flex: 10}}>
@@ -93,20 +99,24 @@ const styles = StyleSheet.create({
          * borderBottomColor: 'purple',*/
         flexDirection:'row',
         flex: 1,
-        backgroundColor: darkBlue
+        backgroundColor: darkBlue,
+        elevation: 5,
+        /* borderWidth: 1,
+         * borderColor: 'black',*/
     },
     settingsButton: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        elevation: 4,
-        backgroundColor: 'white',
         justifyContent: 'space-between',
     },
     settingsButtonText: {
-        fontSize: 20
+        fontSize: 20,
+        color: 'black'
     },
     saldoButtonStyle: {
+        /* borderWidth: 1,
+         * borderColor: 'black',*/
         borderRadius: 4,
         flex: 1,
         alignItems: 'flex-end',

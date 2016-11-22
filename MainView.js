@@ -71,11 +71,11 @@ export default class MainView extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
-                <View style={{flex: 10, backgroundColor: darkBlue}}>
+            <Image source={require('./imada-logo.png')} style={styles.backgroundImageStyle}>
+                <View style={{flex: 10, backgroundColor: 'transparent'}}>
                     {this.renderEventView()}
                 </View>
-                <View style={{flex: 5}}>
+                <View style={{flex: 5, opacity: 1}}>
                     <View style={styles.buttonContainer}>
                         <View style={styles.innerContainer}>
                             <MyButton text="Sodavand"/>
@@ -93,15 +93,19 @@ export default class MainView extends Component {
                         </View>
                     </View>
                 </View>
-            </View>
+            </Image>
         );
     }
 
 }
 
 const styles = StyleSheet.create({
-    settingsButtonText: {
-        fontSize: 20
+    backgroundImageStyle: {
+        flex: 1,
+        width: null,
+        height: null,
+        backgroundColor: 'rgba(0,0,0,0)',
+        resizeMode: 'contain',
     },
     buttonTextStyle: {
         textAlign: 'center',
@@ -114,7 +118,7 @@ const styles = StyleSheet.create({
         borderColor: 'purple',
         alignItems: 'stretch',
         padding: 8,
-        backgroundColor: darkBlue,
+        opacity: 1
     },
     buttonContainer: {
         elevation: 4,
@@ -127,7 +131,7 @@ const styles = StyleSheet.create({
         textShadowColor: 'black',
         /* borderColor: 'black',
          * borderWidth: 1,*/
-        opacity: 0.5,
+        /* opacity: 0.5,*/
     },
     loggedOutContainer: {
         flex: 1,
