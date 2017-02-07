@@ -8,72 +8,25 @@ import {
     LayoutAnimation,
 } from 'react-native';
 
-import {
-    AccessToken,
-    LoginManager,
-} from 'react-native-fbsdk';
+import Drawer from 'react-native-drawer';
 
 import MyButton from './MyButton.js';
-import ImadaEventView from './ImadaEventView.js';
 import {mainTextColor, darkBlue} from './constants.js';
 
 
 export default class MainView extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            fbLoginStatus: false
-        };
-        this.updateLoginStatus = this.updateLoginStatus.bind(this);
-        this.facebookLogin = this.facebookLogin.bind(this);
-        this.facebookLogout = this.facebookLogout.bind(this);
-        this.updateLoginStatus();
     }
 
-    updateLoginStatus = async () => {
-        var result = await AccessToken.getCurrentAccessToken();
-        if (result) {
-            console.log('Logged in');
-            LayoutAnimation.easeInEaseOut();
-            this.setState({fbLoginStatus: true});
-        } else {
-            console.log('Logged out');
-            this.setState({fbLoginStatus: false});
-        }
-    }
 
-    async facebookLogin() {
-        var res = await LoginManager.logInWithReadPermissions(['public_profile']);
-        await this.updateLoginStatus();
-    }
 
-    async facebookLogout() {
-        var res = await LoginManager.logOut();
-        await this.updateLoginStatus();
-    }
-
-    renderEventView() {
-        if (this.state.fbLoginStatus) {
-            return <ImadaEventView fbLoginStatus={this.state.fbLoginStatus}/>;
-        } else {
-            return (
-                <TouchableNativeFeedback onPress={this.facebookLogin}>
-                    <View style={styles.loggedOutContainer}>
-                        <Text style={styles.loggedOutText}>
-                            Log in with faceboo
-                        </Text>
-                    </View>
-                </TouchableNativeFeedback>
-            );
-        }
-    }
 
     render() {
         return (
-            <Image source={require('./imada-logo.png')} style={styles.backgroundImageStyle}>
+            <Image source={require('./logo.png')} style={styles.backgroundImageStyle}>
                 <View style={{flex: 10, backgroundColor: 'transparent'}}>
-                    {this.renderEventView()}
+
                 </View>
                 <View style={{flex: 5, opacity: 1}}>
                     <View style={styles.buttonContainer}>

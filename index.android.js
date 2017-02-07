@@ -16,9 +16,7 @@ import {
     LayoutAnimation,
 } from 'react-native';
 
-import {
-    LoginButton
-} from 'react-native-fbsdk';
+import Drawer from 'react-native-drawer';
 
 import MyButton from './MyButton.js';
 import SettingsView from './SettingsView.js';
@@ -46,12 +44,26 @@ export default class testproject extends Component {
     constructor(props) {
         super(props);
 
+        <Drawer
+            ref={(ref) => this._drawer = ref}
+            content={<SettingsView />}
+        >
+        <SettingsView />
+        </Drawer>  
+
         this.state = {
             view: <MainView/>,
             switchView: this.switchToSettingsView,
             menuButtonText: "Settings"
         };
     }
+
+    closeControlPanel = () => {
+       this._drawer.close()
+     };
+     openControlPanel = () => {
+       this._drawer.open()
+     };
 
     switchToMainView = () => {
         this.setState({
@@ -60,6 +72,8 @@ export default class testproject extends Component {
             menuButtonText: "Settings",
         });
     }
+
+
 
     switchToSettingsView = () => {
         this.setState({
@@ -71,17 +85,18 @@ export default class testproject extends Component {
 
     render() {
         return (
+
             <View style={styles.mainContainer}>
+
                 <View style={styles.topView}>
-                    <TouchableNativeFeedback onPress={this.state.switchView}>
+                    <TouchableNativeFeedback onPress={ () => {this._drawer.open()}}>
                         <View style={styles.settingsButton}>
-                            <Image style={{width: 50, height: 50}} source={require('./imada-logo.png')}/>
+                            <Image style={{width: 50, height: 50}} source={require('./logo.png')}/>
                             <Text style={styles.settingsButtonText}>
                                 {this.state.menuButtonText}
                             </Text>
                         </View>
                     </TouchableNativeFeedback>
-                    {/* <MyButton onPress={this.state.switchView} style={styles.settingsButton} textStyle={styles.settingsButtonText} text="Settings"/> */}
                     <SaldoButton text="Saldo: -1261"/>
                 </View>
                 <View style={{flex: 10}}>

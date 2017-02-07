@@ -13,16 +13,9 @@ import {
     TouchableNativeFeedback,
 } from 'react-native';
 
-import {
-    GraphRequest,
-    GraphRequestManager,
-    LoginButton,
-    AccessToken,
-    LoginManager,
-} from 'react-native-fbsdk';
+
 
 import MainView from './MainView.js';
-import ImadaEventView from './ImadaEventView.js';
 import {mainTextColor, darkBlue} from './constants.js';
 
 export default class MyButton extends Component {
