@@ -16,6 +16,10 @@ import {
     LayoutAnimation,
 } from 'react-native';
 
+import {
+    LoginButton
+} from 'react-native-fbsdk';
+
 import MyButton from './MyButton.js';
 import SettingsView from './SettingsView.js';
 import MainView from './MainView.js';

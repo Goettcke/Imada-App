@@ -18,7 +18,7 @@
       android:theme="@style/AppTheme">
       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
       <activity
-        android:name=".MainActivity"
+        android:name="com.testproject.MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
         <intent-filter>
@@ -28,5 +28,11 @@
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
+
+    <activity android:name="com.facebook.FacebookActivity"
+  android:configChanges=
+         "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+  android:label="@string/app_name" />
 
 </manifest>

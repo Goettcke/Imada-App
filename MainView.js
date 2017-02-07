@@ -61,7 +61,7 @@ export default class MainView extends Component {
                 <TouchableNativeFeedback onPress={this.facebookLogin}>
                     <View style={styles.loggedOutContainer}>
                         <Text style={styles.loggedOutText}>
-                            Log in with facebook
+                            Log in with faceboo
                         </Text>
                     </View>
                 </TouchableNativeFeedback>
