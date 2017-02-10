@@ -4,161 +4,133 @@
  * @flow
  */
 
+//'use strict'
+
 import React, { Component } from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    TouchableHighlight,
-    TouchableNativeFeedback,
-    LayoutAnimation,
-    ListView
-} from 'react-native';
+import { DeviceEventEmitter, Navigator, Text, TouchableOpacity, View, AppRegistry, Image } from 'react-native';
 
 import Drawer from 'react-native-drawer';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-import MyButton from './MyButton.js';
-import SettingsView from './SettingsView.js';
-import MainView from './MainView.js';
-import {darkBlue} from './constants.js';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-class SaldoButton extends Component {
-    static propTypes = {
-        text: React.PropTypes.string.isRequired,
-        onPress: React.PropTypes.func,
-    }
-    render() {
-        const formattedText = this.props.text.toUpperCase();
-        return (
-            <TouchableHighlight onPress={this.props.onPress} style={styles.saldoButtonStyle}>
-                <Text style={styles.saldoButtonTextStyle}>{formattedText}</Text>
-            </TouchableHighlight>
-        );
-    }
+import { EventEmitter } from 'fbemitter';
 
-}
+import Menu from './components/Menu';
+import Home from './components/Home'
+import Challenges from './components/Challenges'
 
-export default class testproject extends Component {
+import navigationHelper from './helpers/navigation';
 
-    constructor(props) {
-        super(props);
+import styles from './styles/root';
 
+let _emitter = new EventEmitter();
 
-        this.state = {
-            view: <MainView/>,
-            switchView: this.switchToSettingsView,
-            menuButtonText: "Settings",
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2})
-        };
-    }
+class testproject extends Component {
+    componentDidMount() {
+        var self = this;
 
-
-
-
-
-
-
-    closeControlPanel = () => {
-       this._drawer.close()
-     };
-     openControlPanel = () => {
-       this._drawer.open()
-     };
-
-    switchToMainView = () => {
-        this.setState({
-            switchView: this.switchToSettingsView,
-            view: <MainView/>,
-            menuButtonText: "Settings",
+        _emitter.addListener('openMenu', () => {
+            self._drawer.open();
         });
-    }
 
-
-
-    switchToSettingsView = () => {
-        this.setState({
-            switchView: this.switchToMainView,
-            view: <SettingsView/>,
-            menuButtonText: "Main",
+        _emitter.addListener('back', () => {
+            self._navigator.pop();
         });
     }
 
     render() {
         return (
-
-
-
-        <Drawer
-            ref={(ref) => this._drawer = ref}
-            type="overlay"
-            content={<Menu />}
-            tapToClose={true}
-            openDrawerOffset={0.2}
-            panCloseMask={0.2}
-            closedDrawerOffset={-3}
-            styles={{
-                drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},
-                main: {paddingLeft: 3}
-            }}
-            tweenHandler={(ratio) => ({
-                main: { opacity:(2-ratio)/2 }
-            })}>
-            {/* Navigator component will be here, in the meantime add a view:*/}
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-            </View>
-        </Drawer>
-
+            <Drawer
+                ref={(ref) => this._drawer = ref}
+                type="overlay"
+                content={<Menu navigate={(route) => {
+                    this._navigator.push(navigationHelper(route));
+                    this._drawer.close()
+                }}/>}
+                tapToClose={true}
+                openDrawerOffset={0.2}
+                panCloseMask={0.2}
+                closedDrawerOffset={-3}
+                styles={{
+                    drawer: {shadowColor: '#000000', shadowOpacity: 1, shadowRadius: 10, backgroundColor: '#000000'},
+                    main: {paddingLeft: 3}
+                }}
+                tweenHandler={(ratio) => ({
+                    main: { opacity:(2-ratio)/2 }
+                })}>
+                <Navigator
+                    ref={(ref) => this._navigator = ref}
+                    configureScene={(route) => Navigator.SceneConfigs.FloatFromLeft}
+                    initialRoute={{
+                        id: 'Home',
+                        title: 'Home',
+                        index: 0
+                    }}
+                    renderScene={(route, navigator) => this._renderScene(route, navigator)}
+                    navigationBar={
+                        <Navigator.NavigationBar
+                            style={styles.navBar}
+                            routeMapper={NavigationBarRouteMapper} />
+                    }
+                />
+            </Drawer>
         );
+    }
+
+    _renderScene(route, navigator) {
+        switch (route.id) {
+            case 'Home':
+                return ( <Home navigator={navigator}/> );
+
+            case 'Challenges':
+                return ( <Challenges navigator={navigator}/> );
+        }
     }
 }
 
+const NavigationBarRouteMapper = {
+    LeftButton(route, navigator, index, navState) {
+        switch (route.id) {
+            case 'Home':
+                return (
+                    <TouchableOpacity
+                        style={styles.navBarLeftButton}
+                        onPress={() => {_emitter.emit('openMenu')}}>
+                        <Icon name="list-ul" size={30} color={'white'} />
+                    </TouchableOpacity>
+                )
+            default:
+                return (
+                    <TouchableOpacity
+                        style={styles.navBarLeftButton}
+                        onPress={() => {_emitter.emit('openMenu')}}>
+                        {<Icon name='list-ul' size={30} color={'white'} />}
+                    </TouchableOpacity>
+                )
+        }
+    },
 
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        backgroundColor: darkBlue,
+    RightButton(route, navigator, index, navState) {
+        return (
+            <TouchableOpacity
+                style={styles.navBarRightButton}>
+                {/*Image er hardcoded, og ikke i vector*/}
+                <Image style={{resizeMode: 'contain', width: 40, height:40}} source={require('./logo.png')}/>
+
+                {/*  <Icon name='more-vert' size={25} color={'white'} />*/}
+            </TouchableOpacity>
+        )
     },
-    topView: {
-        /* borderBottomWidth: 2,
-         * borderBottomColor: 'purple',*/
-        flexDirection:'row',
-        flex: 1,
-        backgroundColor: darkBlue,
-        elevation: 5,
-        /* borderWidth: 1,
-         * borderColor: 'black',*/
-    },
-    settingsButton: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    settingsButtonText: {
-        fontSize: 20,
-        color: 'black'
-    },
-    saldoButtonStyle: {
-        /* borderWidth: 1,
-         * borderColor: 'black',*/
-        borderRadius: 4,
-        flex: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-    },
-    saldoButtonTextStyle: {
-        textAlign: 'right',
-        color: 'black',
-        padding: 8,
-        fontSize: 15,
-        fontWeight: '500',
-    },
-});
+
+    Title(route, navigator, index, navState) {
+        return (
+            <Text style={[styles.navBarText, styles.navBarTitleText]}>
+                {route.title}
+            </Text>
+        )
+    }
+}
+
 
 AppRegistry.registerComponent('testproject', () => testproject);
