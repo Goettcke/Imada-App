@@ -14,6 +14,7 @@ import {
     TouchableHighlight,
     TouchableNativeFeedback,
     LayoutAnimation,
+    ListView
 } from 'react-native';
 
 import Drawer from 'react-native-drawer';
@@ -44,19 +45,21 @@ export default class testproject extends Component {
     constructor(props) {
         super(props);
 
-        <Drawer
-            ref={(ref) => this._drawer = ref}
-            content={<SettingsView />}
-        >
-        <SettingsView />
-        </Drawer>  
 
         this.state = {
             view: <MainView/>,
             switchView: this.switchToSettingsView,
-            menuButtonText: "Settings"
+            menuButtonText: "Settings",
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2) => row1 !== row2})
         };
     }
+
+
+
+
+
+
 
     closeControlPanel = () => {
        this._drawer.close()
@@ -86,23 +89,31 @@ export default class testproject extends Component {
     render() {
         return (
 
-            <View style={styles.mainContainer}>
 
-                <View style={styles.topView}>
-                    <TouchableNativeFeedback onPress={ () => {this._drawer.open()}}>
-                        <View style={styles.settingsButton}>
-                            <Image style={{width: 50, height: 50}} source={require('./logo.png')}/>
-                            <Text style={styles.settingsButtonText}>
-                                {this.state.menuButtonText}
-                            </Text>
-                        </View>
-                    </TouchableNativeFeedback>
-                    <SaldoButton text="Saldo: -1261"/>
-                </View>
-                <View style={{flex: 10}}>
-                    {this.state.view}
-                </View>
+
+        <Drawer
+            ref={(ref) => this._drawer = ref}
+            type="overlay"
+            content={<Menu />}
+            tapToClose={true}
+            openDrawerOffset={0.2}
+            panCloseMask={0.2}
+            closedDrawerOffset={-3}
+            styles={{
+                drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},
+                main: {paddingLeft: 3}
+            }}
+            tweenHandler={(ratio) => ({
+                main: { opacity:(2-ratio)/2 }
+            })}>
+            {/* Navigator component will be here, in the meantime add a view:*/}
+            <View style={styles.container}>
+                <Text style={styles.welcome}>
+                    Welcome to React Native!
+                </Text>
             </View>
+        </Drawer>
+
         );
     }
 }
