@@ -17,8 +17,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { EventEmitter } from 'fbemitter';
 
 import Menu from './components/Menu';
-import Home from './components/Home'
-import Challenges from './components/Challenges'
+import Home from './components/Home';
+import Challenges from './components/Challenges';
+import Settings from './components/Settings';
+import Groups from './components/Groups';
 
 import navigationHelper from './helpers/navigation';
 
@@ -85,6 +87,12 @@ class testproject extends Component {
 
             case 'Challenges':
                 return ( <Challenges navigator={navigator}/> );
+
+            case 'Groups':
+                return ( <Groups navigator={navigator}/> );
+
+            case 'Settings':
+                return ( <Settings navigator={navigator}/>);
         }
     }
 }
@@ -131,6 +139,5 @@ const NavigationBarRouteMapper = {
         )
     }
 }
-
 
 AppRegistry.registerComponent('testproject', () => testproject);

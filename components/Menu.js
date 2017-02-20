@@ -19,7 +19,7 @@ class Menu extends Component {
 
     componentDidMount() {
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(['Home', 'Challenges'])
+            dataSource: this.state.dataSource.cloneWithRows(['Home', 'Challenges','Groups','Settings'])
         });
     }
 

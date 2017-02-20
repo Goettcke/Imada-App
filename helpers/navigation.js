@@ -8,8 +8,16 @@ module.exports = function (scene) {
             id: 'Home'
         },
         'Challenges': {
-            title: 'penis',
+            title: 'Dares',
             id: 'Challenges'
+        },
+        'Settings': {
+            title: 'Settings',
+            id: 'Settings'
+        },
+        'Groups': {
+            title: 'Groups',
+            id: 'Groups'
         }
     }
 
