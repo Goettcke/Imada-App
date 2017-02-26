@@ -154,3 +154,18 @@ sometimes it will not work. In that case, just reload manually.
 * TODO Known issues
 ** TODO Node path
 ** TODO Watchman and inotify overload
+
+** Installing aws-sdk
+Put the 5 tgz in the parent folder of the app (most likely your git folder)
+In the root of the app, run the following:
+#+BEGIN_SRC bash
+npm pack ../aws-sdk-react-native-core-0.0.1.tgz
+npm install aws-sdk-react-native-core-0.0.1.tgz
+#+END_SRC
+Create a folder called "Core" in the root of the app
+run:
+#+BEGIN_SRC bash
+npm pack ../aws-sdk-react-native-sns-0.0.1.tgz
+npm install aws-sdk-react-native-sns-0.0.1.tgz
+#+END_SRC
+for every package.

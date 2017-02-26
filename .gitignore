@@ -41,3 +41,6 @@ android/app/libs
 android/keystores/debug.keystore
 
 !*.jar
+
+Code
+*.tgz
