@@ -19,6 +19,7 @@
     "underscore": "^1.8.3",
     "whatwg-fetch": "^1.1.1"
   },
+
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "babel-jest": "17.0.2",
