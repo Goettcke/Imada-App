@@ -7,7 +7,7 @@
 //'use strict'
 
 import React, { Component } from 'react';
-import { DeviceEventEmitter, Navigator, Text, TouchableOpacity, View, AppRegistry, Image } from 'react-native';
+import { DeviceEventEmitter, Navigator, Text, TouchableOpacity, View, AppRegistry, Image, Alert } from 'react-native';
 
 import Drawer from 'react-native-drawer';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -122,7 +122,12 @@ const NavigationBarRouteMapper = {
     RightButton(route, navigator, index, navState) {
         return (
             <TouchableOpacity
-                style={styles.navBarRightButton}>
+                style={styles.navBarRightButton}
+
+                onPress = {(() => (Alert.alert("About","Created by Unknown Host.\n\nDevelopers:\n" +
+                    "Christian Moeslund, chmoe13@student.sdu.dk\nJonatan Møller jogoe12@student.sdu.dk\n\n" +
+                    "Other duderinos:\nAndreas Munk Jensen, Ehsanullah Ekhlas, Erik Zijdemans, Søren Anthony")))}
+            >
                 {/*Image er hardcoded, og ikke i vector*/}
                 <Image style={{resizeMode: 'contain', width: 40, height:40}} source={require('./logo.png')}/>
 
