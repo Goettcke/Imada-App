@@ -34,6 +34,7 @@
 		4BC23B77EC4A4B4D8CD63346 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F6BD638CE1D42AC9847534D /* Octicons.ttf */; };
 		7E905A6333764C55AF20FACA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 491E54F48CF245C4A40331F3 /* SimpleLineIcons.ttf */; };
 		B5D5376FA54643E89C5E1256 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 097EB0F4392B4D5187E8763F /* Zocial.ttf */; };
+		2315D3F72B204D0CBF089DE1 /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 369E57E3C0514023B0EEA4F1 /* libCore.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,8 @@
 		2F6BD638CE1D42AC9847534D /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		491E54F48CF245C4A40331F3 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		097EB0F4392B4D5187E8763F /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F4CDC84A633F42E6A07BC374 /* Core.xcodeproj */ = {isa = PBXFileReference; name = "Core.xcodeproj"; path = "../node_modules/aws-sdk-react-native-core/ios/Core.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		369E57E3C0514023B0EEA4F1 /* libCore.a */ = {isa = PBXFileReference; name = "libCore.a"; path = "libCore.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +182,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				CCD9B494BCEA496DB6E3D43A /* libRCTFBSDK.a in Frameworks */,
 				2E65DDC09CDF4F63AC56F4B6 /* libRNVectorIcons.a in Frameworks */,
+				2315D3F72B204D0CBF089DE1 /* libCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +307,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				4AEDEB82AF474365AD7B98FD /* RCTFBSDK.xcodeproj */,
 				5ACDD255410E4AAEA9008758 /* RNVectorIcons.xcodeproj */,
+				F4CDC84A633F42E6A07BC374 /* Core.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -648,6 +653,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -666,6 +672,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;
@@ -682,6 +689,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\aws-sdk-react-native-core\ios\Core",
 				);
 				INFOPLIST_FILE = "testproject/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -706,6 +714,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\aws-sdk-react-native-core\ios\Core",
 				);
 				INFOPLIST_FILE = "testproject/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -759,6 +768,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\aws-sdk-react-native-core\ios\Core",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -801,6 +811,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)\..\node_modules\aws-sdk-react-native-core\ios\Core",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
