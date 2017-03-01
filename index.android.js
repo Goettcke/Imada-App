@@ -52,7 +52,7 @@ class testproject extends Component {
                 tapToClose={true}
                 openDrawerOffset={0.6}
                 panOpenMask={0.2}
-                panCloseMask={0.2}
+                panCloseMask={0.6}
                 closedDrawerOffset={-3}
                 styles={{
                     drawer: {shadowColor: '#000000', shadowOpacity: 1, shadowRadius: 10, backgroundColor: '#000000'},
