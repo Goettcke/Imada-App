@@ -4,14 +4,11 @@
 import React, { Component } from 'react';
 
 import {
-    NativeModules,
-    NativeAppEventEmitter,
-    DeviceEventEmitter,
     View,
     Text,
-    TouchableOpacity,
     Alert,
-    Button} from 'react-native';
+    Button
+} from 'react-native';
 
 
 /*
