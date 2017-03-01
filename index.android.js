@@ -30,14 +30,13 @@ let _emitter = new EventEmitter();
 
 class testproject extends Component {
     componentDidMount() {
-        var self = this;
 
         _emitter.addListener('openMenu', () => {
-            self._drawer.open();
+            this._drawer.open();
         });
 
         _emitter.addListener('back', () => {
-            self._navigator.pop();
+            this._navigator.pop();
         });
     }
 
@@ -51,7 +50,8 @@ class testproject extends Component {
                     this._drawer.close()
                 }}/>}
                 tapToClose={true}
-                openDrawerOffset={0.2}
+                openDrawerOffset={0.6}
+                panOpenMask={0.2}
                 panCloseMask={0.2}
                 closedDrawerOffset={-3}
                 styles={{
