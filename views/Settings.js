@@ -18,13 +18,13 @@ import {
     LoginManager,
 } from 'react-native-fbsdk';
 
-import MyButton from './MyButton.js';
-import MainView from './MainView.js';
-import ImadaEventView from './ImadaEventView.js';
-import {mainTextColor, darkBlue} from './constants.js';
+import MyButton from '../MyButton.js';
+import MainView from './Home.js';
+import ImadaEventView from '../ImadaEventView.js';
+import {mainTextColor, darkBlue} from '../constants.js';
 
 
-export default class SettingsView extends Component {
+export default class Settings extends Component {
 
     constructor(props) {
         super(props);

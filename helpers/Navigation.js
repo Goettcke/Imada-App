@@ -1,7 +1,6 @@
-import React, {Platform} from 'react-native';
-import _ from 'underscore';
+import React from 'react-native';
 
-module.exports = function (scene) {
+export default function (scene) {
     const componentMap = {
         'Home': {
             title: 'Home',

@@ -21,7 +21,7 @@ import {
     LoginManager,
 } from 'react-native-fbsdk';
 
-import MainView from './MainView.js';
+import MainView from './views/Home.js';
 import ImadaEventView from './ImadaEventView.js';
 import {mainTextColor, darkBlue} from './constants.js';
 
@@ -44,7 +44,7 @@ export default class MyButton extends Component {
 
 const styles = StyleSheet.create({
     buttonStyle: {
-        backgroundColor: 'purple',
+        backgroundColor: '#e53935',
         borderRadius: 6,
         flex: 1,
         alignItems: 'center',

@@ -13,12 +13,12 @@ import {
     LoginManager,
 } from 'react-native-fbsdk';
 
-import MyButton from './MyButton.js';
-import ImadaEventView from './ImadaEventView.js';
-import {mainTextColor, darkBlue} from './constants.js';
+import MyButton from '../MyButton.js';
+import ImadaEventView from '../ImadaEventView.js';
+import {mainTextColor, darkBlue} from '../constants.js';
 
 
-export default class MainView extends Component {
+export default class Home extends Component {
     constructor(props) {
         super(props);
 
@@ -71,7 +71,7 @@ export default class MainView extends Component {
 
     render() {
         return (
-            <Image source={require('./imada-logo.png')} style={styles.backgroundImageStyle}>
+            <Image source={require('../imada-logo.png')} style={styles.backgroundImageStyle}>
                 <View style={{flex: 10, backgroundColor: 'transparent'}}>
                     {this.renderEventView()}
                 </View>
