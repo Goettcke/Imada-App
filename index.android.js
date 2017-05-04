@@ -108,23 +108,6 @@ export default class testproject extends Component {
                     }
                 />
             </Drawer>
-            /*<View style={styles.mainContainer}>
-             <View style={styles.topView}>
-             <TouchableNativeFeedback onPress={this.state.switchView}>
-             <View style={styles.settingsButton}>
-             <Image style={{width: 50, height: 50}} source={require('./imada-logo.png')}/>
-             <Text style={styles.settingsButtonText}>
-             {this.state.menuButtonText}
-             </Text>
-             </View>
-             </TouchableNativeFeedback>
-             {/* <MyButton onPress={this.state.switchView} style={styles.settingsButton} textStyle={styles.settingsButtonText} text="Settings"/> *//*}
-             <SaldoButton text="Saldo: -1261"/>
-             </View>
-             <View style={{flex: 10}}>
-             {this.state.view}
-             </View>
-             </View>*/
         );
     }
 
