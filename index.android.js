@@ -7,16 +7,11 @@
 import React, {Component} from 'react';
 import {
     AppRegistry,
-    StyleSheet,
     Text,
-    View,
     Image,
     TouchableHighlight,
-    TouchableNativeFeedback,
-    LayoutAnimation,
     Navigator,
     Alert,
-    DeviceEventEmitter,
     TouchableOpacity
 } from 'react-native';
 
@@ -24,7 +19,6 @@ import Drawer from 'react-native-drawer';
 import {EventEmitter} from 'fbemitter';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import MyButton from './app/components/MyButton.js';
 import Settings from './app/views/Settings.js';
 import Home from './app/views/Home.js';
 import navigationHelper from './helpers/Navigation';

@@ -1,28 +1,10 @@
 import React, {Component} from 'react';
 import {
-    AppRegistry,
     StyleSheet,
     Text,
-    /* Image,*/
     View,
-    ScrollView,
-    /* Alert,*/
-    /* Button,
-     * Dimensions,*/
-    TouchableHighlight,
     TouchableNativeFeedback,
 } from 'react-native';
-
-import {
-    GraphRequest,
-    GraphRequestManager,
-    LoginButton,
-    AccessToken,
-    LoginManager,
-} from 'react-native-fbsdk';
-
-import MainView from '../views/Home.js';
-import {mainTextColor, darkBlue} from '../config/constants.js';
 
 export default class MyButton extends Component {
     static propTypes = {

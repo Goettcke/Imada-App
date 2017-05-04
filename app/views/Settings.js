@@ -1,27 +1,12 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     Text,
-    /* Image,*/
     View,
-    ScrollView,
-    /* Alert,*/
-    /* Button,
-     * Dimensions,*/
-    TouchableHighlight,
-    TouchableNativeFeedback,
 } from 'react-native';
 
 import {
     LoginButton,
-    AccessToken,
-    LoginManager,
 } from 'react-native-fbsdk';
-
-import MyButton from '../components/MyButton.js';
-import MainView from './Home.js';
-import {mainTextColor, darkBlue} from '../config/constants.js';
-
 
 export default class Settings extends Component {
 

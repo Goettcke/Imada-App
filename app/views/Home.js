@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    Text,
     Image,
     View,
-    TouchableNativeFeedback,
-    LayoutAnimation,
 } from 'react-native';
 
-import {
-    AccessToken,
-    LoginManager,
-} from 'react-native-fbsdk';
-
 import MyButton from '../components/MyButton.js';
-import {mainTextColor, darkBlue} from '../config/constants.js';
+import {mainTextColor} from '../config/constants.js';
 
 
 export default class Home extends Component {
