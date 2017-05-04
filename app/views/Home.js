@@ -14,8 +14,8 @@ import {
 } from 'react-native-fbsdk';
 
 import MyButton from '../components/MyButton.js';
-import ImadaEventView from '../ImadaEventView.js';
-import {mainTextColor, darkBlue} from '../constants.js';
+import ImadaEventView from '../../ImadaEventView.js';
+import {mainTextColor, darkBlue} from '../config/constants.js';
 
 
 export default class Home extends Component {
@@ -25,7 +25,7 @@ export default class Home extends Component {
 
     render() {
         return (
-            <Image source={require('../imada-logo.png')} style={styles.backgroundImageStyle}>
+            <Image source={require('../images/imada-logo.png')} style={styles.backgroundImageStyle}>
                 <View style={{flex: 10, backgroundColor: 'transparent'}}>
                 </View>
                 <View style={{flex: 5, opacity: 1}}>

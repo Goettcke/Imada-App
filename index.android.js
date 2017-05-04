@@ -24,12 +24,12 @@ import Drawer from 'react-native-drawer';
 import {EventEmitter} from 'fbemitter';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import MyButton from './components/MyButton.js';
-import Settings from './views/Settings.js';
-import Home from './views/Home.js';
+import MyButton from './app/components/MyButton.js';
+import Settings from './app/views/Settings.js';
+import Home from './app/views/Home.js';
 import navigationHelper from './helpers/Navigation';
-import styles from './styles/Main';
-import Menu from './components/Menu';
+import styles from './app/styles/Main';
+import Menu from './app/components/Menu';
 
 let _emitter = new EventEmitter();
 
@@ -145,7 +145,7 @@ const NavigationBarRouteMapper = {
                     'Other duderinos:\nAndreas Munk Jensen, Ehsanullah Ekhlas, Erik Zijdemans, Søren Anthony')))}
             >
                 {/*Image er hardcoded, og ikke i vector*/}
-                <Image style={{resizeMode: 'contain', width: 40, height: 40}} source={require('./imada-logo.png')}/>
+                <Image style={{resizeMode: 'contain', width: 40, height: 40}} source={require('./app/images/imada-logo.png')}/>
 
                 {/*  <Icon name='more-vert' size={25} color={'white'} />*/}
             </TouchableOpacity>

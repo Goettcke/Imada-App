@@ -20,7 +20,7 @@ import {
 
 import moment from 'moment';
 
-import {imadaStudentsGroupId, mainTextColor} from './constants.js';
+import {imadaStudentsGroupId, mainTextColor} from './app/config/constants.js';
 
 const styles = StyleSheet.create({
     scrollViewStyle: {
