@@ -22,7 +22,6 @@ import {
 } from 'react-native-fbsdk';
 
 import MainView from '../views/Home.js';
-import ImadaEventView from '../../ImadaEventView.js';
 import {mainTextColor, darkBlue} from '../config/constants.js';
 
 export default class MyButton extends Component {

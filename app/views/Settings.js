@@ -20,7 +20,6 @@ import {
 
 import MyButton from '../components/MyButton.js';
 import MainView from './Home.js';
-import ImadaEventView from '../../ImadaEventView.js';
 import {mainTextColor, darkBlue} from '../config/constants.js';
 
 
