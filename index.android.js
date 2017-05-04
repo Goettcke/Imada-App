@@ -22,7 +22,7 @@ import {
 
 import Drawer from 'react-native-drawer';
 import {EventEmitter} from 'fbemitter';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import MyButton from './MyButton.js';
 import Settings from './views/Settings.js';
@@ -154,7 +154,7 @@ const NavigationBarRouteMapper = {
                 onPress={() => {
                     _emitter.emit('openMenu');
                 }}>
-                <Icon name="list-ul" size={30} color={'white'}/>
+                <Icon name="menu" size={30} color={'white'}/>
             </TouchableOpacity>
         );
     },
