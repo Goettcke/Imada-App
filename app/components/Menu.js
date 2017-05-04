@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListView} from 'react-native';
+import {Image, Text, View, ListView} from 'react-native';
 
 import Button from 'react-native-button';
 
@@ -25,7 +25,9 @@ export default class Menu extends Component {
 
     _renderMenuItem(item) {
         return (
-            <Button style={styles.menuItem} onPress={() => this._onItemSelect(item)}>{item}</Button>
+            <Button title={item} style={styles.itemContainer} onPress={() => this._onItemSelect(item)}>
+                {item}
+            </Button>
         );
     }
 
@@ -35,11 +37,23 @@ export default class Menu extends Component {
 
     render() {
         return (
-            <ListView
-                style={styles.container}
-                dataSource={this.state.dataSource}
-                renderRow={(item) => this._renderMenuItem(item)}
-            />
+            <View>
+                <Image source={require('../images/imada-logo.png')} style={styles.userInfoContainer}>
+                    <View style={styles.headerTextContainer}>
+                        <Text style={styles.headerName}>
+                            Cool Person
+                        </Text>
+                        <Text style={styles.headerExtra}>
+                            abcde12
+                        </Text>
+                    </View>
+                </Image>
+                <ListView
+                    style={styles.container}
+                    dataSource={this.state.dataSource}
+                    renderRow={(item) => this._renderMenuItem(item)}
+                />
+            </View>
         );
     }
 }

@@ -4,27 +4,26 @@ import {darkBlue} from '../config/constants.js';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     navBar: {
         backgroundColor: '#9c27b0',
-    },
-    navBarText: {
-        color: 'white',
-        fontSize: 16,
-        marginVertical: 10,
+        flex: 1,
+        height: 56,
+        paddingHorizontal: 16,
+        flexDirection:'row',
+        alignItems: 'center',
     },
     navBarTitleText: {
-        fontWeight: '500',
-        marginVertical: 9,
+        fontSize: 20,
+        paddingTop: 12,
+        color: 'white',
     },
     navBarLeftButton: {
-        paddingLeft: 10,
-        paddingTop: 10,
+        padding: 12,
     },
     navBarRightButton: {
-        padding: 10,
-        paddingTop: 5
+        padding: 7,
     },
     scene: {
         flex: 1,

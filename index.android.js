@@ -75,16 +75,16 @@ export default class testproject extends Component {
                     this._drawer.close();
                 }}/>}
                 tapToClose={true}
-                openDrawerOffset={0.6}
-                panOpenMask={0.2}
-                panCloseMask={0.6}
+                openDrawerOffset={0.2}
+                panCloseMask={0.2}
                 closedDrawerOffset={-3}
+                panOpenMask={0.2}
                 styles={{
-                    drawer: {shadowColor: '#000000', shadowOpacity: 1, shadowRadius: 10, backgroundColor: '#FFFFFF'},
-                    main: {paddingLeft: 0}
+                    drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3, backgroundColor: '#FFFFFF'},
+                    main: {paddingLeft: 3}
                 }}
                 tweenHandler={(ratio) => ({
-                    main: {opacity: (2 - ratio) / 2}
+                    mainOverlay: {opacity: ratio / 2, backgroundColor: 'black'}
                 })}>
                 <Navigator
                     ref={(ref) => this._navigator = ref}
@@ -124,7 +124,7 @@ const NavigationBarRouteMapper = {
                 onPress={() => {
                     _emitter.emit('openMenu');
                 }}>
-                <Icon name="menu" size={30} color={'white'}/>
+                <Icon name="menu" size={28} color={'white'}/>
             </TouchableOpacity>
         );
     },
@@ -139,7 +139,7 @@ const NavigationBarRouteMapper = {
                     'Other duderinos:\nAndreas Munk Jensen, Ehsanullah Ekhlas, Erik Zijdemans, Søren Anthony')))}
             >
                 {/*Image er hardcoded, og ikke i vector*/}
-                <Image style={{resizeMode: 'contain', width: 40, height: 40}} source={require('./app/images/imada-logo.png')}/>
+                <Image style={{resizeMode: 'contain', width: 38, height: 38}} source={require('./app/images/imada-logo.png')}/>
 
                 {/*  <Icon name='more-vert' size={25} color={'white'} />*/}
             </TouchableOpacity>
