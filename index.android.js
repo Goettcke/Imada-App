@@ -51,31 +51,24 @@ class SaldoButton extends Component {
 }
 
 export default class testproject extends Component {
+    componentDidMount() {
+
+        _emitter.addListener('openMenu', () => {
+            this._drawer.open();
+        });
+
+        _emitter.addListener('back', () => {
+            this._navigator.pop();
+        });
+    }
 
     constructor(props) {
         super(props);
 
         this.state = {
             view: <Home/>,
-            switchView: this.switchToSettingsView,
             menuButtonText: 'Settings'
         };
-    }
-
-    switchToMainView = () => {
-        this.setState({
-            switchView: this.switchToSettingsView,
-            view: <Home/>,
-            menuButtonText: 'Settings',
-        });
-    }
-
-    switchToSettingsView = () => {
-        this.setState({
-            switchView: this.switchToMainView,
-            view: <Settings/>,
-            menuButtonText: 'Home',
-        });
     }
 
     render() {
