@@ -6,6 +6,10 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
+    mainContainer: {
+        flex: 1,
+        paddingTop: 56,
+    },
     navBar: {
         backgroundColor: '#9c27b0',
         flex: 1,
@@ -28,10 +32,6 @@ export default StyleSheet.create({
     scene: {
         flex: 1,
         paddingTop: 63,
-    },
-    mainContainer: {
-        flex: 1,
-        backgroundColor: darkBlue,
     },
     topView: {
         /* borderBottomWidth: 2,

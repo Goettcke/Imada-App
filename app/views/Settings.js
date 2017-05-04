@@ -17,11 +17,10 @@ export default class Settings extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <View style={{flex: 1, alignItems: 'center', flexDirection: 'row'}}>
-                    <Text style={{flex: 1, fontSize: 30}}>
-                        Facebook:
+                <View style={{flex: 1, alignItems: 'flex-start', flexDirection: 'row', paddingTop: 16, paddingLeft: 16}}>
+                    <Text style={{flex: 1, fontSize: 14, color:'black'}}>
+                        Here will be great checkboxes
                     </Text>
-                    <LoginButton/>
                 </View>
             </View>
         );

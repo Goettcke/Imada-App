@@ -6,6 +6,7 @@
 
 import React, {Component} from 'react';
 import {
+    View,
     AppRegistry,
     Text,
     Image,
@@ -105,7 +106,15 @@ export default class testproject extends Component {
         );
     }
 
-    _renderScene(route, navigator) {
+    _renderScene(route, navigtor) {
+        return (
+            <View style={styles.mainContainer}>
+                {this._renderSceneView(route, navigtor)}
+            </View>
+        );
+    }
+
+    _renderSceneView(route, navigator) {
         switch (route.id) {
             case 'Home':
                 return ( <Home navigator={navigator}/> );

@@ -73,9 +73,6 @@ const styles = StyleSheet.create({
         color: mainTextColor,
         fontSize: 25,
         textShadowColor: 'black',
-        /* borderColor: 'black',
-         * borderWidth: 1,*/
-        /* opacity: 0.5,*/
     },
     loggedOutContainer: {
         flex: 1,
