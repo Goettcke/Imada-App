@@ -13,7 +13,7 @@ import {
     LoginManager,
 } from 'react-native-fbsdk';
 
-import MyButton from '../MyButton.js';
+import MyButton from '../components/MyButton.js';
 import ImadaEventView from '../ImadaEventView.js';
 import {mainTextColor, darkBlue} from '../constants.js';
 

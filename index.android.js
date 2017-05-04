@@ -24,12 +24,12 @@ import Drawer from 'react-native-drawer';
 import {EventEmitter} from 'fbemitter';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import MyButton from './MyButton.js';
+import MyButton from './components/MyButton.js';
 import Settings from './views/Settings.js';
 import Home from './views/Home.js';
 import navigationHelper from './helpers/Navigation';
 import styles from './styles/Main';
-import Menu from './Menu';
+import Menu from './components/Menu';
 
 let _emitter = new EventEmitter();
 
@@ -87,7 +87,7 @@ export default class testproject extends Component {
                 closedDrawerOffset={-3}
                 styles={{
                     drawer: {shadowColor: '#000000', shadowOpacity: 1, shadowRadius: 10, backgroundColor: '#FFFFFF'},
-                    main: {paddingLeft: 3}
+                    main: {paddingLeft: 0}
                 }}
                 tweenHandler={(ratio) => ({
                     main: {opacity: (2 - ratio) / 2}

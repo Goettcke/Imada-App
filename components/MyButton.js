@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -21,15 +21,16 @@ import {
     LoginManager,
 } from 'react-native-fbsdk';
 
-import MainView from './views/Home.js';
-import ImadaEventView from './ImadaEventView.js';
-import {mainTextColor, darkBlue} from './constants.js';
+import MainView from '../views/Home.js';
+import ImadaEventView from '../ImadaEventView.js';
+import {mainTextColor, darkBlue} from '../constants.js';
 
 export default class MyButton extends Component {
     static propTypes = {
         text: React.PropTypes.string.isRequired,
         onPress: React.PropTypes.func,
     }
+
     render() {
         const formattedText = this.props.text.toUpperCase();
         return (

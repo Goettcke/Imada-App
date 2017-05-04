@@ -1,20 +1,11 @@
 import React, {Component} from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    /* Image,*/
-    View,
-    ScrollView,
-    /* Alert,*/
-    /* Button,
-     * Dimensions,*/
-    TouchableHighlight,
-    TouchableNativeFeedback,
-    ListView,
-} from 'react-native';
+import {ListView} from 'react-native';
+
 import Button from 'react-native-button';
 
+import styles from '../styles/Menu';
+
+var _navigate;
 export default class Menu extends Component {
     constructor(props) {
         super(props);
@@ -23,19 +14,8 @@ export default class Menu extends Component {
                 rowHasChanged: (row1, row2) => row1 !== row2
             })
         };
+        _navigate = this.props.navigate;
     }
-
-
-    _renderMenuItem(item) {
-        return (
-            <Button title={item} onPress={() => this._onItemSelect(item)}>{item}</Button>
-        );
-    }
-
-    _onItemSelect(item) {
-        // Add the code to push a scene in navigation stack, we’ll do it in a few
-    }
-
 
     componentDidMount() {
         this.setState({
@@ -43,14 +23,25 @@ export default class Menu extends Component {
         });
     }
 
+    _renderMenuItem(item) {
+        return (
+            <Button style={styles.menuItem} onPress={() => this._onItemSelect(item)}>{item}</Button>
+        );
+    }
+
+    _onItemSelect(item) {
+        _navigate(item);
+    }
+
     render() {
         return (
             <ListView
+                style={styles.container}
                 dataSource={this.state.dataSource}
                 renderRow={(item) => this._renderMenuItem(item)}
             />
         );
     }
-
-
 }
+
+module.exports = Menu;
