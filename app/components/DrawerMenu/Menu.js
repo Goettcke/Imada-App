@@ -9,16 +9,21 @@ import images from '../../config/images';
 export default class Menu extends Component {
     constructor(props) {
         super(props);
-        const dataSource = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
+        const dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
         this.state = {
             dataSource: dataSource.cloneWithRows(['Home', 'Settings']),
             navigate: props.navigate,
+            selectedItem: 'Home',
         };
     }
 
     _renderMenuItem(item) {
+        let style = styles.menuItem;
+        if (this.state.selectedItem === item) {
+            style = [styles.menuItem, styles.selectedItem];
+        }
         return (
-            <Button title={item} style={styles.menuItem} onPress={() => this._onItemSelect(item)}>
+            <Button title={item} style={style} onPress={() => this._onItemSelect(item)}>
                 {item}
             </Button>
         );
@@ -26,11 +31,16 @@ export default class Menu extends Component {
 
     _onItemSelect(item) {
         this.state.navigate(item);
+        this.setSelected(item);
+    }
+
+    setSelected(item) {
+        this.setState({selectedItem: item});
     }
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <Image source={images.imadaLogo} style={styles.userInfoContainer}>
                     <View style={styles.headerTextContainer}>
                         <Text style={styles.headerName}>
@@ -42,10 +52,15 @@ export default class Menu extends Component {
                     </View>
                 </Image>
                 <ListView
-                    style={styles.container}
+                    key={this.state.selectedItem}
+                    style={styles.itemContainer}
                     dataSource={this.state.dataSource}
                     renderRow={(item) => this._renderMenuItem(item)}
+                    scrollEnabled={false}
                 />
+                <Text>
+                    {this.state.selectedItem}
+                </Text>
             </View>
         );
     }

@@ -6,7 +6,8 @@ import {
     Image,
     TouchableOpacity,
     StyleSheet,
-    StatusBar
+    StatusBar,
+    Platform
 } from 'react-native';
 
 import Drawer from 'react-native-drawer';
@@ -34,8 +35,13 @@ export default class DrawerLayout extends Component {
                 ref={(ref) => this._drawer = ref}
                 type="overlay"
                 content={ <Menu navigate={(route) => {
+                    const currentRoutes = this._navigator.getCurrentRoutes();
+                    const currentRoute = currentRoutes[currentRoutes.length - 1].id;
+
+                    if (route !== currentRoute) {
+                        this._navigator.push(getRoute(route));
+                    }
                     this._drawer.close();
-                    this._navigator.push(getRoute(route));
                 }}/> }
                 tapToClose={true}
                 openDrawerOffset={0.2}
@@ -124,7 +130,6 @@ const styles = StyleSheet.create({
     navBar: {
         backgroundColor: '#9c27b0',
         flex: 1,
-        height: 56,
         paddingHorizontal: 16,
         flexDirection: 'row',
         alignItems: 'center',
@@ -136,7 +141,7 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     button: {
-        padding: 12,
+        padding: (Platform.OS === 'android') ? 12 : 8,
     },
     mainContainer: {
         flex: 1,

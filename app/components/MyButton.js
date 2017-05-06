@@ -12,7 +12,7 @@ export default class MyButton extends Component {
     static propTypes = {
         text: React.PropTypes.string.isRequired,
         onPress: React.PropTypes.func,
-    }
+    };
 
     render() {
         const formattedText = this.props.text.toUpperCase();
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 2,
-
     },
     buttonTextStyle: {
         textAlign: 'center',
