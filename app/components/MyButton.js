@@ -6,6 +6,8 @@ import {
     TouchableNativeFeedback,
 } from 'react-native';
 
+import colors from '../config/colors';
+
 export default class MyButton extends Component {
     static propTypes = {
         text: React.PropTypes.string.isRequired,
@@ -26,7 +28,7 @@ export default class MyButton extends Component {
 
 const styles = StyleSheet.create({
     buttonStyle: {
-        backgroundColor: '#e53935',
+        backgroundColor: colors.secondary,
         borderRadius: 2,
         flex: 1,
         alignItems: 'center',
@@ -36,8 +38,7 @@ const styles = StyleSheet.create({
     },
     buttonTextStyle: {
         textAlign: 'center',
-        color: 'white',
-        padding: 8,
+        color: '#FFFFFF',
         fontWeight: '500',
     },
 });

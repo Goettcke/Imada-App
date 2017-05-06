@@ -1,8 +1,9 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../config/colors';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: '#FFF',
+        backgroundColor: colors.highBackground,
         paddingTop: 8,
         paddingHorizontal: 16,
     },
@@ -10,7 +11,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 14,
         height: 48,
-        color: '#333',
+        color: colors.primaryText,
         textAlign: 'left',
         fontSize: 14,
     },

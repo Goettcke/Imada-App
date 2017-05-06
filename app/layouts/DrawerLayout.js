@@ -5,7 +5,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    StatusBar
 } from 'react-native';
 
 import Drawer from 'react-native-drawer';
@@ -15,6 +16,7 @@ import getRoute from '../helpers/getRoute';
 import Menu from '../components/DrawerMenu/Menu';
 
 import images from '../config/images';
+import colors from '../config/colors';
 
 export default class DrawerLayout extends Component {
     static propTypes = {
@@ -73,6 +75,8 @@ export default class DrawerLayout extends Component {
     renderContentView(route, navigator) {
         return (
             <View style={styles.mainContainer}>
+                <StatusBar
+                    backgroundColor={colors.primaryDark}/>
                 {this.props.renderContent(route, navigator)}
             </View>
         );

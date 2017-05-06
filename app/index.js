@@ -7,7 +7,7 @@ import {
 import {EventEmitter} from 'fbemitter';
 
 import Settings from './views/Settings';
-import Home from './views/Home';
+import Home from './views/home/Home';
 
 let _emitter = new EventEmitter();
 import DrawerLayout from './layouts/DrawerLayout';
