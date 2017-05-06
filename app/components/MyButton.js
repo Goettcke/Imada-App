@@ -27,10 +27,11 @@ export default class MyButton extends Component {
 const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: '#e53935',
-        borderRadius: 6,
+        borderRadius: 2,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        elevation: 2,
 
     },
     buttonTextStyle: {

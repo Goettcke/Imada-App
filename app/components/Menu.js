@@ -5,19 +5,19 @@ import Button from 'react-native-button';
 
 import styles from '../styles/Menu';
 
-var _navigate;
 export default class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2
-            })
+            }),
+            navigate: props.navigate,
         };
-        _navigate = this.props.navigate;
     }
 
     componentDidMount() {
+        // TODO: Make not hard coded
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(['Home', 'Settings'])
         });
@@ -25,14 +25,14 @@ export default class Menu extends Component {
 
     _renderMenuItem(item) {
         return (
-            <Button title={item} style={styles.itemContainer} onPress={() => this._onItemSelect(item)}>
+            <Button title={item} style={styles.menuItem} onPress={() => this._onItemSelect(item)}>
                 {item}
             </Button>
         );
     }
 
     _onItemSelect(item) {
-        _navigate(item);
+        this.state.navigate(item);
     }
 
     render() {

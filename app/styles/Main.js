@@ -17,6 +17,7 @@ export default StyleSheet.create({
         paddingHorizontal: 16,
         flexDirection:'row',
         alignItems: 'center',
+        elevation: 4,
     },
     navBarTitleText: {
         fontSize: 20,

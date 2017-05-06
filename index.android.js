@@ -22,7 +22,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Settings from './app/views/Settings.js';
 import Home from './app/views/Home.js';
-import navigationHelper from './helpers/Navigation';
+import navigationHelper from './app/config/Navigation';
 import styles from './app/styles/Main';
 import Menu from './app/components/Menu';
 

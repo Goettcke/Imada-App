@@ -6,7 +6,7 @@ module.exports = StyleSheet.create({
         paddingTop: 8,
         paddingHorizontal: 16,
     },
-    itemContainer: {
+    menuItem: {
         alignItems: 'center',
         paddingVertical: 14,
         height: 48,
