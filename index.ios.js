@@ -4,50 +4,60 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
+    AppRegistry,
+    Alert,
 } from 'react-native';
 
-export default class testproject extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
-  }
+import {EventEmitter} from 'fbemitter';
+
+import Settings from './app/views/Settings';
+import Home from './app/views/Home';
+
+let _emitter = new EventEmitter();
+import DrawerLayout from './app/layouts/DrawerLayout';
+
+
+export default class ImadaApp extends Component {
+    componentDidMount() {
+        _emitter.addListener('back', () => {
+            this._navigator.pop();
+        });
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            view: <Home/>,
+        };
+    }
+
+    render() {
+        return (
+            <DrawerLayout
+                rightButtonPress={ () => this.navBarRightButtonPressed }
+                renderContent={ (route, navigator) => this.renderSceneView(route, navigator) }
+            />
+        );
+    }
+
+    renderSceneView(route, navigator) {
+        switch (route.id) {
+            case 'Home':
+                return ( <Home navigator={navigator}/> );
+
+            case 'Settings':
+                return ( <Settings navigator={navigator}/>);
+        }
+    }
+
+    navBarRightButtonPressed() {
+        Alert.alert('About', 'Created by Unknown Host.\n\nDevelopers:\n' +
+            'Christian Moeslund, chmoe13@student.sdu.dk\nJonatan Møller jogoe12@student.sdu.dk\n\n' +
+            'Other duderinos:\nAndreas Munk Jensen, Ehsanullah Ekhlas, Erik Zijdemans, Søren Anthony')
+    }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
-AppRegistry.registerComponent('testproject', () => testproject);
+AppRegistry.registerComponent('testproject', () => ImadaApp);
