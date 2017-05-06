@@ -3,24 +3,17 @@ import {Image, Text, View, ListView} from 'react-native';
 
 import Button from 'react-native-button';
 
-import styles from '../styles/Menu';
+import styles from './styles';
+import images from '../../config/images';
 
 export default class Menu extends Component {
     constructor(props) {
         super(props);
+        const dataSource = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
         this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2
-            }),
+            dataSource: dataSource.cloneWithRows(['Home', 'Settings']),
             navigate: props.navigate,
         };
-    }
-
-    componentDidMount() {
-        // TODO: Make not hard coded
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(['Home', 'Settings'])
-        });
     }
 
     _renderMenuItem(item) {
@@ -38,7 +31,7 @@ export default class Menu extends Component {
     render() {
         return (
             <View>
-                <Image source={require('../images/imada-logo.png')} style={styles.userInfoContainer}>
+                <Image source={images.imadaLogo} style={styles.userInfoContainer}>
                     <View style={styles.headerTextContainer}>
                         <Text style={styles.headerName}>
                             Cool Person

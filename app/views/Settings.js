@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     Text,
     View,
 } from 'react-native';
-
-import {
-    LoginButton,
-} from 'react-native-fbsdk';
 
 export default class Settings extends Component {
 
@@ -16,12 +12,10 @@ export default class Settings extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
-                <View style={{flex: 1, alignItems: 'flex-start', flexDirection: 'row', paddingTop: 16, paddingLeft: 16}}>
-                    <Text style={{flex: 1, fontSize: 14, color:'black'}}>
-                        Here will be great checkboxes
-                    </Text>
-                </View>
+            <View style={{paddingTop: 16, paddingLeft: 16}}>
+                <Text style={{fontSize: 14, color: 'black'}}>
+                    Here will be great checkboxes
+                </Text>
             </View>
         );
     }

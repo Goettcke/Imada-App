@@ -22,7 +22,7 @@ import Home from './app/views/Home.js';
 import getRoute from './app/helpers/getRoute';
 import createNavigationBarMapper from './app/helpers/createNavigationBarMapper';
 import styles from './app/config/styles';
-import Menu from './app/components/Menu';
+import Menu from './app/components/DrawerMenu/Menu';
 let _emitter = new EventEmitter();
 
 class SaldoButton extends Component {
@@ -95,7 +95,7 @@ export default class testproject extends Component {
                     navigationBar={
                         <Navigator.NavigationBar
                             style={styles.navBar}
-                            routeMapper={ createNavigationBarMapper(() => { return this.navBarLeftButtonPressed; }, () => { return this.navBarRightButtonPressed; }) }/>
+                            routeMapper={ createNavigationBarMapper(() => { this.navBarLeftButtonPressed(); }, () => { this.navBarRightButtonPressed(); }) }/>
                     }
                 />
             </Drawer>
