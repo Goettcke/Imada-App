@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {darkBlue} from '../config/constants.js';
+import {darkBlue} from '../config/settings.js';
 
 export default StyleSheet.create({
     container: {

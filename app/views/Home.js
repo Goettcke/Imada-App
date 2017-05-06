@@ -6,7 +6,8 @@ import {
 } from 'react-native';
 
 import MyButton from '../components/MyButton.js';
-import {mainTextColor} from '../config/constants.js';
+import {mainTextColor} from '../config/settings.js';
+import images from '../config/images';
 
 
 export default class Home extends Component {
@@ -16,7 +17,7 @@ export default class Home extends Component {
 
     render() {
         return (
-            <Image source={require('../images/imada-logo.png')} style={styles.backgroundImageStyle}>
+            <Image source={images.imadaLogo} style={styles.backgroundImageStyle}>
                 <View style={{flex: 10, backgroundColor: 'transparent'}}>
                 </View>
                 <View style={{flex: 5, opacity: 1}}>

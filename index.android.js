@@ -9,23 +9,20 @@ import {
     View,
     AppRegistry,
     Text,
-    Image,
     TouchableHighlight,
     Navigator,
     Alert,
-    TouchableOpacity
 } from 'react-native';
 
 import Drawer from 'react-native-drawer';
 import {EventEmitter} from 'fbemitter';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Settings from './app/views/Settings.js';
 import Home from './app/views/Home.js';
-import navigationHelper from './app/config/Navigation';
-import styles from './app/styles/Main';
+import getRoute from './app/helpers/getRoute';
+import createNavigationBarMapper from './app/helpers/createNavigationBarMapper';
+import styles from './app/config/styles';
 import Menu from './app/components/Menu';
-
 let _emitter = new EventEmitter();
 
 class SaldoButton extends Component {
@@ -62,7 +59,6 @@ export default class testproject extends Component {
 
         this.state = {
             view: <Home/>,
-            menuButtonText: 'Settings'
         };
     }
 
@@ -72,7 +68,7 @@ export default class testproject extends Component {
                 ref={(ref) => this._drawer = ref}
                 type="overlay"
                 content={<Menu navigate={(route) => {
-                    this._navigator.push(navigationHelper(route));
+                    this._navigator.push(getRoute(route));
                     this._drawer.close();
                 }}/>}
                 tapToClose={true}
@@ -99,17 +95,17 @@ export default class testproject extends Component {
                     navigationBar={
                         <Navigator.NavigationBar
                             style={styles.navBar}
-                            routeMapper={NavigationBarRouteMapper}/>
+                            routeMapper={ createNavigationBarMapper(() => { return this.navBarLeftButtonPressed; }, () => { return this.navBarRightButtonPressed; }) }/>
                     }
                 />
             </Drawer>
         );
     }
 
-    _renderScene(route, navigtor) {
+    _renderScene(route, navigator) {
         return (
             <View style={styles.mainContainer}>
-                {this._renderSceneView(route, navigtor)}
+                {this._renderSceneView(route, navigator)}
             </View>
         );
     }
@@ -123,45 +119,16 @@ export default class testproject extends Component {
                 return ( <Settings navigator={navigator}/>);
         }
     }
-}
 
-const NavigationBarRouteMapper = {
-    LeftButton(route, navigator, index, navState) {
-        return (
-            <TouchableOpacity
-                style={styles.navBarLeftButton}
-                onPress={() => {
-                    _emitter.emit('openMenu');
-                }}>
-                <Icon name="menu" size={28} color={'white'}/>
-            </TouchableOpacity>
-        );
-    },
-
-    RightButton(route, navigator, index, navState) {
-        return (
-            <TouchableOpacity
-                style={styles.navBarRightButton}
-
-                onPress={(() => (Alert.alert('About', 'Created by Unknown Host.\n\nDevelopers:\n' +
-                    'Christian Moeslund, chmoe13@student.sdu.dk\nJonatan Møller jogoe12@student.sdu.dk\n\n' +
-                    'Other duderinos:\nAndreas Munk Jensen, Ehsanullah Ekhlas, Erik Zijdemans, Søren Anthony')))}
-            >
-                {/*Image er hardcoded, og ikke i vector*/}
-                <Image style={{resizeMode: 'contain', width: 38, height: 38}} source={require('./app/images/imada-logo.png')}/>
-
-                {/*  <Icon name='more-vert' size={25} color={'white'} />*/}
-            </TouchableOpacity>
-        );
-    },
-
-    Title(route, navigator, index, navState) {
-        return (
-            <Text style={[styles.navBarText, styles.navBarTitleText]}>
-                {route.title}
-            </Text>
-        );
+    navBarLeftButtonPressed() {
+        _emitter.emit('openMenu');
     }
-};
+
+    navBarRightButtonPressed() {
+        Alert.alert('About', 'Created by Unknown Host.\n\nDevelopers:\n' +
+            'Christian Moeslund, chmoe13@student.sdu.dk\nJonatan Møller jogoe12@student.sdu.dk\n\n' +
+            'Other duderinos:\nAndreas Munk Jensen, Ehsanullah Ekhlas, Erik Zijdemans, Søren Anthony')
+    }
+}
 
 AppRegistry.registerComponent('testproject', () => testproject);
