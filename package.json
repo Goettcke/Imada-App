@@ -14,7 +14,6 @@
     "react-native": "0.37.0",
     "react-native-button": "^1.8.2",
     "react-native-drawer": "^2.3.0",
-    "react-native-fbsdk": "^0.4.0",
     "react-native-vector-icons": "^4.1.0"
   },
   "devDependencies": {
