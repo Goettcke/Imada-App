@@ -8,6 +8,7 @@ export default StyleSheet.create({
         height: null,
         backgroundColor: colors.background,
         resizeMode: 'contain',
+        justifyContent: 'space-between',
     },
     buttonTextStyle: {
         textAlign: 'center',
@@ -19,21 +20,36 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'stretch',
         padding: 8,
-        opacity: 1
+        opacity: 1,
     },
     buttonContainer: {
-        elevation: 4,
         flex: 1,
         flexDirection: 'row',
+        height: 10,
     },
-    loggedOutText: {
-        color: '#ffffff',
-        fontSize: 25,
-        textShadowColor: 'black',
-    },
-    loggedOutContainer: {
+    saldoText: {
+        color: colors.primaryText,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        paddingVertical: 16,
+        marginHorizontal: 16,
+        marginVertical: 8,
+        fontSize: 18,
+        elevation: 2,
+        backgroundColor: '#ffffff',
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: 'white',
+        margin: 8,
+        elevation: 1
+    },
+    item: {
+        padding: 16,
+        paddingBottom: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    }
 });

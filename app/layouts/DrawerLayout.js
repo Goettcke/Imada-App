@@ -39,7 +39,11 @@ export default class DrawerLayout extends Component {
                     const currentRoute = currentRoutes[currentRoutes.length - 1].id;
 
                     if (route !== currentRoute) {
-                        this._navigator.push(getRoute(route));
+                        if (route === 'Home') {
+                            this._navigator.pop();
+                        } else {
+                            this._navigator.push(getRoute(route));
+                        }
                     }
                     this._drawer.close();
                 }}/> }
