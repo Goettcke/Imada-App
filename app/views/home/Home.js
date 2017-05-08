@@ -11,7 +11,7 @@ import styles from './styles';
 
 import images from '../../config/images';
 import colors from '../../config/colors';
-import ActivityList from "../../components/ActivityList";
+import ActivityList from '../../components/ActivityList';
 
 export default class Home extends Component {
     constructor(props) {

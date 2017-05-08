@@ -23,12 +23,10 @@ export default class ActivityList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('what');
         const dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
         this.setState({
             dataSource: dataSource.cloneWithRows(nextProps.itemList),
         });
-        console.log(this.state.dataSource);
     }
 
     _renderMenuItem(itemId) {

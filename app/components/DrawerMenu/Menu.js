@@ -6,6 +6,8 @@ import Button from 'react-native-button';
 import styles from './styles';
 import images from '../../config/images';
 
+import UserManager from '../../helpers/UserManager';
+
 export default class Menu extends Component {
     constructor(props) {
         super(props);
@@ -14,7 +16,26 @@ export default class Menu extends Component {
             dataSource: dataSource.cloneWithRows(['Home', 'Settings']),
             navigate: props.navigate,
             selectedItem: 'Home',
+            userName: '',
+            userEmail: 'not signed in',
         };
+
+        UserManager.addListener((user) => this.onUserChanged(user));
+    }
+
+    onUserChanged(newUser) {
+        console.log(newUser);
+        if (newUser.signedIn) {
+            this.setState({
+                userName: 'signed in',
+                userEmail: newUser.email,
+            });
+        } else {
+            this.setState({
+                userName: '',
+                userEmail: 'not signed in',
+            });
+        }
     }
 
     _renderMenuItem(item) {
@@ -44,10 +65,10 @@ export default class Menu extends Component {
                 <Image source={images.imadaLogo} style={styles.userInfoContainer}>
                     <View style={styles.headerTextContainer}>
                         <Text style={styles.headerName}>
-                            Cool Person
+                            {this.state.userName}
                         </Text>
                         <Text style={styles.headerExtra}>
-                            abcde12
+                            {this.state.userEmail}
                         </Text>
                     </View>
                 </Image>

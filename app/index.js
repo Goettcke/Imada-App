@@ -33,6 +33,7 @@ export default class ImadaApp extends Component {
             <DrawerLayout
                 rightButtonPress={ () => this.navBarRightButtonPressed }
                 renderContent={ (route, navigator) => this.renderSceneView(route, navigator) }
+                user={this.state.user}
             />
         );
     }
@@ -40,10 +41,10 @@ export default class ImadaApp extends Component {
     renderSceneView(route, navigator) {
         switch (route.id) {
             case 'Home':
-                return ( <Home navigator={navigator}/> );
+                return ( <Home navigator={navigator} user={this.state.user}/> );
 
             case 'Settings':
-                return ( <Settings navigator={navigator}/>);
+                return ( <Settings navigator={navigator} user={this.state.user}/>);
         }
     }
 
@@ -51,5 +52,11 @@ export default class ImadaApp extends Component {
         Alert.alert('About', 'Created by Unknown Host.\n\nDevelopers:\n' +
             'Christian Moeslund, chmoe13@student.sdu.dk\nJonatan Møller jogoe12@student.sdu.dk\n\n' +
             'Other duderinos:\nAndreas Munk Jensen, Ehsanullah Ekhlas, Erik Zijdemans, Søren Anthony')
+    }
+}
+
+class UserManager {
+    constructor() {
+
     }
 }
