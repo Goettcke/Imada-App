@@ -27,6 +27,23 @@ export default class DrawerLayout extends Component {
 
     constructor(props) {
         super(props);
+
+        this.navigate = this.navigate.bind(this);
+    }
+
+    navigate(route) {
+        console.log(route);
+        const currentRoutes = this._navigator.getCurrentRoutes();
+        const currentRoute = currentRoutes[currentRoutes.length - 1].id;
+
+        if (route !== currentRoute) {
+            if (route === 'Home') {
+                this._navigator.pop();
+            } else {
+                this._navigator.push(getRoute(route));
+            }
+        }
+        this._drawer.close();
     }
 
     render() {
@@ -34,19 +51,7 @@ export default class DrawerLayout extends Component {
             <Drawer
                 ref={(ref) => this._drawer = ref}
                 type="overlay"
-                content={ <Menu navigate={(route) => {
-                    const currentRoutes = this._navigator.getCurrentRoutes();
-                    const currentRoute = currentRoutes[currentRoutes.length - 1].id;
-
-                    if (route !== currentRoute) {
-                        if (route === 'Home') {
-                            this._navigator.pop();
-                        } else {
-                            this._navigator.push(getRoute(route));
-                        }
-                    }
-                    this._drawer.close();
-                }}/> }
+                content={ <Menu navigate={this.navigate}/> }
                 tapToClose={true}
                 openDrawerOffset={0.2}
                 panCloseMask={0.2}

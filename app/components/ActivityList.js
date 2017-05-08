@@ -20,6 +20,8 @@ export default class ActivityList extends Component {
             navigate: props.navigate,
             selectedItem: 'Home',
         };
+
+        this._renderMenuItem = this._renderMenuItem.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -34,9 +36,6 @@ export default class ActivityList extends Component {
         return (
             <View style={styles.item}>
                 <Text>{item.label} - {item.price}kr</Text>
-                <Button onPress={() => {
-                    this.props.onButtonPressed(itemId);
-                }}>Anuller</Button>
             </View>
         );
     }
@@ -46,7 +45,7 @@ export default class ActivityList extends Component {
             <ListView
                 style={[styles.container, this.props.style]}
                 dataSource={this.state.dataSource}
-                renderRow={(item) => this._renderMenuItem(item)}
+                renderRow={this._renderMenuItem}
                 scrollEnabled={false}
                 enableEmptySections={true}/>
         );

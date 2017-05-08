@@ -20,6 +20,9 @@ export default class Menu extends Component {
             userEmail: 'not signed in',
         };
 
+        this._onItemSelect = this._onItemSelect.bind(this);
+        this._renderMenuItem = this._renderMenuItem.bind(this);
+
         UserManager.addListener((user) => this.onUserChanged(user));
     }
 
@@ -51,6 +54,7 @@ export default class Menu extends Component {
     }
 
     _onItemSelect(item) {
+        console.log(this);
         this.state.navigate(item);
         this.setSelected(item);
     }
@@ -76,7 +80,7 @@ export default class Menu extends Component {
                     key={this.state.selectedItem}
                     style={styles.itemContainer}
                     dataSource={this.state.dataSource}
-                    renderRow={(item) => this._renderMenuItem(item)}
+                    renderRow={this._renderMenuItem}
                     scrollEnabled={false}
                 />
                 <Text>

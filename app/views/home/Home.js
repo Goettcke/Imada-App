@@ -5,7 +5,6 @@ import {
     Text,
 } from 'react-native';
 
-import Button from 'react-native-button';
 import MyButton from '../../components/MyButton/MyButton';
 import styles from './styles';
 
@@ -21,12 +20,23 @@ export default class Home extends Component {
             greetingTest: 'what',
             latestActivity: [],
         };
+
+        this._beerPressed = this._beerPressed.bind(this);
+        this._sodaPressed = this._sodaPressed.bind(this);
     }
 
     _updateActivities(itemId) {
         const newActivities = this.state.latestActivity.slice();
         newActivities.unshift(itemId);
         this.setState({latestActivity: newActivities});
+    }
+
+    _sodaPressed() {
+        this._updateActivities('soda');
+    }
+
+    _beerPressed() {
+        this._updateActivities('beer');
     }
 
     render() {
@@ -44,15 +54,11 @@ export default class Home extends Component {
                         <MyButton
                             text="Sodavand"
                             style={{backgroundColor: colors.secondary}}
-                            onPress={() => {
-                                this._updateActivities('soda');
-                            }}/>
+                            onPress={this._sodaPressed}/>
                         <MyButton
                             text="Øl"
                             style={{backgroundColor: colors.secondaryDark}}
-                            onPress={() => {
-                                this._updateActivities('beer');
-                            }}/>
+                            onPress={this._beerPressed}/>
                     </View>
                 </View>
             </Image>

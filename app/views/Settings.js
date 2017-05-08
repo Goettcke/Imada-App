@@ -19,6 +19,10 @@ export default class Settings extends Component {
             status: 'Not signed in',
             userListener: undefined,
         };
+
+        this.emailInputChanged = this.emailInputChanged.bind(this);
+        this.passwordInputChanged = this.passwordInputChanged.bind(this);
+        this.loginButtonPressed = this.loginButtonPressed.bind(this);
     }
 
     componentDidMount() {
@@ -37,28 +41,42 @@ export default class Settings extends Component {
         console.log(newUser);
     }
 
+    emailInputChanged(text) {
+        this.setState({
+            email: text,
+        });
+    }
+
+    passwordInputChanged(text) {
+        this.setState({
+            password: text,
+        });
+    }
+
+    async loginButtonPressed() {
+        let response = await UserManager.userLogin(this.state.email, this.state.password);
+
+        this.setState({
+            status: response.message,
+        });
+    }
+
     render() {
         return (
             <View style={{padding: 16,}}>
                 <Text>Email</Text>
                 <TextInput
                     value={this.state.email}
-                    onChangeText={(text) => this.setState({email: text,})}
+                    onChangeText={this.emailInputChanged}
                     keyboardType={'email-address'}
                 />
                 <Text>Password</Text>
                 <TextInput
                     value={this.state.password}
-                    onChangeText={(text) => this.setState({password: text,})}
+                    onChangeText={this.passwordInputChanged}
                     secureTextEntry={true}
                 />
-                <Button title="Log ind" onPress={async () => {
-                    let response = await UserManager.userLogin(this.state.email, this.state.password);
-
-                    this.setState({
-                        status: response.message,
-                    });
-                }}/>
+                <Button title="Log ind" onPress={this.loginButtonPressed}/>
 
                 <Text style={{fontSize: 14, color: 'black'}}>
                     {this.state.status}
