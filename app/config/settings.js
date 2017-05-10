@@ -1,6 +1,3 @@
 
 export const imadaStudentsGroupId = '5812419939';
-export const mainTextColor = 'black';
-/* export const darkBlue = '#222230';*/
-export const darkBlue = '#eeeeee';
-
+export const serverAddress = 'http://10.125.88.107:3000';

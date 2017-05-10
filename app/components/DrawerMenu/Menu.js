@@ -27,10 +27,9 @@ export default class Menu extends Component {
     }
 
     onUserChanged(newUser) {
-        console.log(newUser);
         if (newUser.signedIn) {
             this.setState({
-                userName: 'signed in',
+                userName: newUser.username,
                 userEmail: newUser.email,
             });
         } else {
@@ -54,7 +53,6 @@ export default class Menu extends Component {
     }
 
     _onItemSelect(item) {
-        console.log(this);
         this.state.navigate(item);
         this.setSelected(item);
     }

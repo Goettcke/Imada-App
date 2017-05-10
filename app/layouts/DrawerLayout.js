@@ -32,7 +32,6 @@ export default class DrawerLayout extends Component {
     }
 
     navigate(route) {
-        console.log(route);
         const currentRoutes = this._navigator.getCurrentRoutes();
         const currentRoute = currentRoutes[currentRoutes.length - 1].id;
 

@@ -1,14 +1,14 @@
 import {EventEmitter} from 'fbemitter';
+import {serverAddress} from '../config/settings';
 
 class UserManager {
     currentUser = {
         signedIn: false,
     };
-    listeners = [];
     emitter = new EventEmitter();
 
     async userLogin(email, password) {
-        let response = await fetch('http://192.168.1.178:3000/api/ImadaUsers/login', {
+        let response = await fetch(`${serverAddress}/api/ImadaUsers/login`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -21,7 +21,6 @@ class UserManager {
         });
 
         let responseJson = await response.json();
-        console.log(responseJson);
 
         if (responseJson.error !== undefined) {
             return {
@@ -31,10 +30,16 @@ class UserManager {
             };
         }
 
+        let userInfoResponse = await fetch(`${serverAddress}/api/ImadaUsers/${responseJson.userId}?access_token=${responseJson.id}`);
+
+        let userInfo = await userInfoResponse.json();
+        console.log(userInfo);
+
         this.currentUser = {
             userId: responseJson.userId,
             token: responseJson.id,
-            email: email,
+            email: userInfo.email,
+            username: userInfo.username,
             signedIn: true,
         };
 

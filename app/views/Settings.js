@@ -78,7 +78,7 @@ export default class Settings extends Component {
                     value={this.state.password}
                     onChangeText={this.passwordInputChanged}
                     secureTextEntry={true}
-                    autoCapitalize={false}
+                    autoCapitalize={'none'}
                     height={48}
                     placeholder={'hunter2'}
                     autoCorrect={false}
