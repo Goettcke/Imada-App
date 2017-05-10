@@ -27,7 +27,7 @@ export default class Menu extends Component {
     }
 
     onUserChanged(newUser) {
-        if (newUser.signedIn) {
+        if (newUser !== null) {
             this.setState({
                 userName: newUser.username,
                 userEmail: newUser.email,

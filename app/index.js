@@ -12,9 +12,13 @@ import Home from './views/home/Home';
 let _emitter = new EventEmitter();
 import DrawerLayout from './layouts/DrawerLayout';
 
+import UserManager from './helpers/UserManager';
+
 
 export default class ImadaApp extends Component {
-    componentDidMount() {
+    async componentDidMount() {
+        await UserManager.getCurrentUser();
+
         _emitter.addListener('back', () => {
             this._navigator.pop();
         });
