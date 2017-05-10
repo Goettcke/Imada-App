@@ -69,12 +69,19 @@ export default class Settings extends Component {
                     value={this.state.email}
                     onChangeText={this.emailInputChanged}
                     keyboardType={'email-address'}
+                    height={48}
+                    autoCapitalize={'none'}
+                    placeholder={'user@email.com'}
                 />
                 <Text>Password</Text>
                 <TextInput
                     value={this.state.password}
                     onChangeText={this.passwordInputChanged}
                     secureTextEntry={true}
+                    autoCapitalize={false}
+                    height={48}
+                    placeholder={'hunter2'}
+                    autoCorrect={false}
                 />
                 <Button title="Log ind" onPress={this.loginButtonPressed}/>
 

@@ -6,8 +6,6 @@ export default StyleSheet.create({
         flex: 1,
         width: null,
         height: null,
-        backgroundColor: colors.background,
-        resizeMode: 'contain',
         justifyContent: 'space-between',
     },
     buttonTextStyle: {

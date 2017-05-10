@@ -8,7 +8,6 @@ import {
 import MyButton from '../../components/MyButton/MyButton';
 import styles from './styles';
 
-import images from '../../config/images';
 import colors from '../../config/colors';
 import ActivityList from '../../components/ActivityList';
 
@@ -41,7 +40,7 @@ export default class Home extends Component {
 
     render() {
         return (
-            <Image source={images.imadaLogo} style={styles.backgroundImageStyle}>
+            <View style={styles.backgroundImageStyle}>
                 <View style={{backgroundColor: 'transparent', flexDirection: 'row',}}>
                     <Text style={styles.saldoText}>
                         12345 kr
@@ -61,7 +60,7 @@ export default class Home extends Component {
                             onPress={this._beerPressed}/>
                     </View>
                 </View>
-            </Image>
+            </View>
         );
     }
 }

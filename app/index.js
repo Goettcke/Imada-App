@@ -54,9 +54,3 @@ export default class ImadaApp extends Component {
             'Other duderinos:\nAndreas Munk Jensen, Ehsanullah Ekhlas, Erik Zijdemans, Søren Anthony')
     }
 }
-
-class UserManager {
-    constructor() {
-
-    }
-}
