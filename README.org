@@ -111,8 +111,34 @@ It should be possible to click on the "OK" button now. Do that, and it will
 create the virtual device. When that is done, select it and press "Start" and
 then "Launch".
 
-** TODO Using your own device
-TODO
+** Using your own device
+To use your own device, it should be sufficient to just plug it in, and it should be detected.
+To confirm that it is detected, you can run
+
+#+BEGIN_SRC bash
+adb devices
+#+END_SRC
+
+The output should look something like this
+#+BEGIN_EXAMPLE
+List of devices attached 
+05157df5127a9630  device                    
+#+END_EXAMPLE
+
+If it does, you should be good to go.
+
+** Develop on device without USB
+It is possible to develop on a device without having it plugged into the computer.
+
+Open up the debugging menu. Choose "Dev Settings" and then "Debug server host & port for device".
+Find your IP by running something like ~ifconfig~ or ~ip addr~ depending on distro in the terminal.
+By default, the development server listens on port 8081. Input the address and
+port ~ip:port~. For example, ~192.168.123.1:8081~. It should work.
+
+Note that it is probably best to start by plugging the device to the computer and then running
+~react-native run-android~, which ensures that the app is properly installed on
+your device, with all changes since the last time.
+
 * Running the project
 Open your terminal, and navigate to a directory where you would like have the
 project. Now run
