@@ -37,7 +37,6 @@ export default class ImadaApp extends Component {
             <DrawerLayout
                 rightButtonPress={ () => this.navBarRightButtonPressed }
                 renderContent={ (route, navigator) => this.renderSceneView(route, navigator) }
-                user={this.state.user}
             />
         );
     }
@@ -45,10 +44,10 @@ export default class ImadaApp extends Component {
     renderSceneView(route, navigator) {
         switch (route.id) {
             case 'Home':
-                return ( <Home navigator={navigator} user={this.state.user}/> );
+                return ( <Home navigator={navigator}/> );
 
             case 'Settings':
-                return ( <Settings navigator={navigator} user={this.state.user}/>);
+                return ( <Settings navigator={navigator}/>);
         }
     }
 

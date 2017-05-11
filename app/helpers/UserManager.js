@@ -40,6 +40,7 @@ class UserManager {
             responseJson.userId,
             userInfo.email,
             userInfo.username,
+            userInfo.Balance,
         );
 
         return {
@@ -54,17 +55,20 @@ class UserManager {
         return this.emitter.addListener('userChanged', func);
     }
 
-    async setCurrentUser(token, userId, email, username) {
+    async setCurrentUser(token, userId, email, username, balance) {
         this._currentUser = {
             token: token,
             userId: userId,
             email: email,
             username: username,
+            balance: balance,
         };
+
+        console.log(balance);
 
         this.emitter.emit('userChanged', this._currentUser);
 
-        await AsyncStorage.multiSet([['token', token], ['userId', String(userId)], ['email', email], ['username', username]],
+        await AsyncStorage.multiSet([['token', token], ['userId', String(userId)], ['email', email], ['username', username], ['balance', String(balance)]],
             (errors) => {
                 console.log(errors);
             });
@@ -76,12 +80,13 @@ class UserManager {
                 const token = await AsyncStorage.getItem('token');
 
                 if (token !== null) {
-                    let email = null, username = null, userId = null;
-                    await AsyncStorage.multiGet(['email', 'username', 'userId'], (err, stores) => {
+                    let email = null, username = null, userId = null, balance = null;
+                    await AsyncStorage.multiGet(['email', 'username', 'userId', 'balance'], (err, stores) => {
                         stores.map((result, i, store) => {
                             email = store[0][1];
                             username = store[1][1];
                             userId = store[2][1];
+                            balance = Number(store[3][1]);
 
                             console.log(username);
                         });
@@ -89,8 +94,8 @@ class UserManager {
                         console.log(err);
                     });
 
-                    if (email !== null && username !== null && userId !== null) {
-                        await this.setCurrentUser(token, userId, email, username);
+                    if (email !== null && username !== null && userId !== null && balance !== null) {
+                        await this.setCurrentUser(token, userId, email, username, balance);
                         return this._currentUser;
                     } else {
                         return null;

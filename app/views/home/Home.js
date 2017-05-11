@@ -10,6 +10,7 @@ import styles from './styles';
 
 import colors from '../../config/colors';
 import ActivityList from '../../components/ActivityList';
+import UserManager from '../../helpers/UserManager';
 
 export default class Home extends Component {
     constructor(props) {
@@ -18,10 +19,20 @@ export default class Home extends Component {
         this.state = {
             greetingTest: 'what',
             latestActivity: [],
+            account: 0,
         };
 
         this._beerPressed = this._beerPressed.bind(this);
         this._sodaPressed = this._sodaPressed.bind(this);
+        this._onUserUpdated = this._onUserUpdated.bind(this);
+        UserManager.addListener(this._onUserUpdated);
+    }
+
+    _onUserUpdated(user) {
+        console.log(user);
+        this.setState({
+            account: user.balance,
+        });
     }
 
     _updateActivities(itemId) {
@@ -43,7 +54,7 @@ export default class Home extends Component {
             <View style={styles.backgroundImageStyle}>
                 <View style={{backgroundColor: 'transparent', flexDirection: 'row',}}>
                     <Text style={styles.saldoText}>
-                        12345 kr
+                        {this.state.account} kr
                     </Text>
                 </View>
                 <ActivityList
