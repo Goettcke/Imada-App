@@ -7,7 +7,7 @@ class UserManager {
     _currentUser = null;
     emitter = new EventEmitter();
 
-    async userLogin(email, password) {
+    async userSignIn(email, password) {
         let response = await fetch(`${serverAddress}/api/ImadaUsers/login`, {
             method: 'POST',
             headers: {
@@ -49,6 +49,19 @@ class UserManager {
             statusCode: 200,
             user: this._currentUser,
         };
+    }
+
+    async userSignOut() {
+        await fetch(`${serverAddress}/api/ImadaUsers/logout?${this._currentUser.token}`, {
+            method: 'POST',
+        });
+
+        this._currentUser = null;
+        this.emitter.emit('userChanged', this._currentUser);
+
+        await AsyncStorage.multiRemove(['token', 'userId', 'email', 'username', 'balance'], (errors) => {
+            console.log(errors);
+        });
     }
 
     addListener(func) {

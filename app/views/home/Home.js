@@ -11,6 +11,7 @@ import styles from './styles';
 import colors from '../../config/colors';
 import ActivityList from '../../components/ActivityList';
 import UserManager from '../../helpers/UserManager';
+import SignInModal from '../../components/SignInModal';
 
 export default class Home extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ export default class Home extends Component {
             greetingTest: 'what',
             latestActivity: [],
             account: 0,
+            signInVisible: true,
         };
 
         this._beerPressed = this._beerPressed.bind(this);
@@ -29,10 +31,17 @@ export default class Home extends Component {
     }
 
     _onUserUpdated(user) {
-        console.log(user);
-        this.setState({
-            account: user.balance,
-        });
+        if (user !== null) {
+            this.setState({
+                account: user.balance,
+                signInVisible: false,
+            });
+        } else {
+            this.setState({
+                account: 0,
+                signInVisible: true,
+            });
+        }
     }
 
     _updateActivities(itemId) {
@@ -49,9 +58,22 @@ export default class Home extends Component {
         this._updateActivities('beer');
     }
 
+    async loginButtonPressed() {
+        let response = await UserManager.userSignIn(this.state.email, this.state.password);
+
+        this.setState({
+            status: response.message,
+        });
+    }
+
     render() {
         return (
             <View style={styles.backgroundImageStyle}>
+                <SignInModal
+                    signInPressed={async () => {
+                        await this.loginButtonPressed();
+                    }}
+                    visible={this.state.signInVisible}/>
                 <View style={{backgroundColor: 'transparent', flexDirection: 'row',}}>
                     <Text style={styles.saldoText}>
                         {this.state.account} kr
