@@ -64,6 +64,23 @@ class UserManager {
         });
     }
 
+    async userRegister(name, email, password) {
+        let response = await fetch(`${serverAddress}/api/ImadaUsers/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: name,
+                email: email,
+                password: password,
+            })
+        });
+
+        return await response.json();
+    }
+
     addListener(func) {
         return this.emitter.addListener('userChanged', func);
     }

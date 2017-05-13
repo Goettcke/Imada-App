@@ -9,33 +9,40 @@ import {
 
 import colors from '../config/colors';
 
-export default class SignInModal extends Component {
+export default class RegisterModal extends Component {
     state = {
         visible: false,
+        name: '',
         email: '',
         password: '',
+        passwordRepeat: '',
     };
 
     static propTypes = {
-        signInPressed: PropTypes.func.isRequired,
+        registerPressed: PropTypes.func.isRequired,
         visible: PropTypes.bool.isRequired,
+        backPressed: PropTypes.func.isRequired,
     };
 
     constructor(props) {
         super(props);
 
+        this.nameInputChanged = this.nameInputChanged.bind(this);
         this.emailInputChanged = this.emailInputChanged.bind(this);
         this.passwordInputChanged = this.passwordInputChanged.bind(this);
-        this.loginButtonPressed = this.loginButtonPressed.bind(this);
-        this.registerPressed = this.registerPressed.bind(this);
+        this.passwordRepeatInputChanged = this.passwordRepeatInputChanged.bind(this);
+        this.buttonPressed = this.buttonPressed.bind(this);
     }
 
-    loginButtonPressed() {
-        this.props.signInPressed(this.state.email, this.state.password);
+    buttonPressed() {
+        console.log(this.state);
+        this.props.registerPressed(this.state.name, this.state.email, this.state.password, this.state.passwordRepeat);
     }
 
-    registerPressed() {
-        this.props.registerPressed(this.state.email, this.state.password);
+    nameInputChanged(text) {
+        this.setState({
+            name: text,
+        });
     }
 
     emailInputChanged(text) {
@@ -50,6 +57,12 @@ export default class SignInModal extends Component {
         });
     }
 
+    passwordRepeatInputChanged(text) {
+        this.setState({
+            passwordRepeat: text,
+        });
+    }
+
     render() {
         return (
             <Modal
@@ -58,7 +71,7 @@ export default class SignInModal extends Component {
                 visible={this.props.visible}
                 style={{backgroundColor: 'red',}}
                 onRequestClose={() => {
-
+                    this.props.backPressed();
                 }}>
                 <View style={{
                     flex: 1,
@@ -67,7 +80,15 @@ export default class SignInModal extends Component {
                     alignItems: 'center'
                 }}>
                     <View style={{backgroundColor: colors.highBackground, padding: 16, margin: 16, flex: 1,}}>
-                        <Text style={{fontSize: 24, paddingBottom: 8, fontWeight: '500',}}>Sign in</Text>
+                        <Text style={{fontSize: 24, paddingBottom: 8, fontWeight: '500',}}>Register</Text>
+                        <Text>Name</Text>
+                        <TextInput
+                            value={this.state.name}
+                            onChangeText={this.nameInputChanged}
+                            keyboardType={'email-address'}
+                            height={48}
+                            autoCapitalize={'none'}
+                        />
                         <Text>Email</Text>
                         <TextInput
                             value={this.state.email}
@@ -75,7 +96,6 @@ export default class SignInModal extends Component {
                             keyboardType={'email-address'}
                             height={48}
                             autoCapitalize={'none'}
-                            placeholder={'user@email.com'}
                         />
                         <Text>Password</Text>
                         <TextInput
@@ -84,13 +104,20 @@ export default class SignInModal extends Component {
                             secureTextEntry={true}
                             autoCapitalize={'none'}
                             height={48}
-                            placeholder={'hunter2'}
+                            autoCorrect={false}
+                        />
+                        <Text>Repeat password</Text>
+                        <TextInput
+                            value={this.state.passwordRepeat}
+                            onChangeText={this.passwordRepeatInputChanged}
+                            secureTextEntry={true}
+                            autoCapitalize={'none'}
+                            height={48}
                             autoCorrect={false}
                         />
 
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between',}}>
-                            <Button title="Register" onPress={this.registerPressed} style={{flex: 1,}}/>
-                            <Button title="Log ind" onPress={this.loginButtonPressed} style={{flex: 1,}}/>
+                        <View style={{flexDirection: 'row', justifyContent: 'center',}}>
+                            <Button title="Register" onPress={this.buttonPressed} style={{flex: 1,}}/>
                         </View>
 
                         <Text style={{fontSize: 14, color: 'black'}}>

@@ -17,6 +17,7 @@ import UserManager from './helpers/UserManager';
 
 export default class ImadaApp extends Component {
     async componentDidMount() {
+        await UserManager.userSignOut();
         await UserManager.getCurrentUser();
 
         _emitter.addListener('back', () => {

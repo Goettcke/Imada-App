@@ -1,3 +1,3 @@
 
 export const imadaStudentsGroupId = '5812419939';
-export const serverAddress = 'http://10.125.88.107:3000';
+export const serverAddress = 'http://192.168.123.12:3000';
