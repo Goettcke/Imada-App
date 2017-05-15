@@ -33,7 +33,6 @@ class UserManager {
         let userInfoResponse = await fetch(`${serverAddress}/api/ImadaUsers/${responseJson.userId}?access_token=${responseJson.id}`);
 
         let userInfo = await userInfoResponse.json();
-        console.log(userInfo);
 
         await this.setCurrentUser(
             responseJson.id,
@@ -52,6 +51,8 @@ class UserManager {
     }
 
     async userSignOut() {
+        if (this._currentUser === null) return;
+
         await fetch(`${serverAddress}/api/ImadaUsers/logout?${this._currentUser.token}`, {
             method: 'POST',
         });
@@ -94,8 +95,6 @@ class UserManager {
             balance: balance,
         };
 
-        console.log(balance);
-
         this.emitter.emit('userChanged', this._currentUser);
 
         await AsyncStorage.multiSet([['token', token], ['userId', String(userId)], ['email', email], ['username', username], ['balance', String(balance)]],
@@ -117,8 +116,6 @@ class UserManager {
                             username = store[1][1];
                             userId = store[2][1];
                             balance = Number(store[3][1]);
-
-                            console.log(username);
                         });
 
                         console.log(err);

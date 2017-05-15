@@ -38,10 +38,11 @@ export default class Home extends Component {
 
     async componentDidMount() {
         this._onUserUpdated(UserManager._currentUser);
+        const test = await fetch('https://imada.mechagk.dk:3000/api/Messages/greet?msg=test');
+        console.log(test);
     }
 
     _onUserUpdated(user) {
-        console.log(user);
         if (user !== null) {
             this.setState({
                 account: user.balance,
