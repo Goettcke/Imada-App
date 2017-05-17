@@ -25,6 +25,7 @@ export default class Home extends Component {
             account: 0,
             signInVisible: false,
             registerVisible: false,
+            working: false,
         };
 
         this._beerPressed = this._beerPressed.bind(this);
@@ -38,7 +39,7 @@ export default class Home extends Component {
 
     async componentDidMount() {
         this._onUserUpdated(UserManager._currentUser);
-        const test = await fetch('https://imada.mechagk.dk:3000/api/Messages/greet?msg=test');
+        let test = await fetch('https://imada.mechagk.dk:3000/api/Messages/greet?msg=test');
         console.log(test);
     }
 
@@ -79,7 +80,15 @@ export default class Home extends Component {
             return;
         }
 
+        this.setState({
+            working: true,
+        });
+
         let response = await UserManager.userSignIn(email, password);
+
+        this.setState({
+            working: false,
+        });
 
         if (response.code === 'SUCCESS') {
             return;
@@ -95,7 +104,7 @@ export default class Home extends Component {
     }
 
     async registerButtonPressed(name, email, password, passwordRepeat) {
-        console.log(password + ", " + passwordRepeat);
+        console.log(password + ', ' + passwordRepeat);
 
         let message = '';
         if (name === '') {
@@ -106,7 +115,15 @@ export default class Home extends Component {
         } else if (passwordRepeat !== password) {
             message = 'Password fields are not identical';
         } else {
+            this.setState({
+                working: true,
+            });
+
             let response = await UserManager.userRegister(name, email, password);
+
+            this.setState({
+                working: false,
+            });
 
             if (response.error !== undefined) {
                 if (response.error.statusCode === 422) {
@@ -143,7 +160,8 @@ export default class Home extends Component {
                         await this.loginButtonPressed(email, password);
                     }}
                     registerPressed={this.signInRegisterPressed}
-                    visible={this.state.signInVisible}/>
+                    visible={this.state.signInVisible}
+                    working={this.state.working}/>
                 <RegisterModal
                     registerPressed={this.registerButtonPressed}
                     backPressed={() => {
@@ -151,7 +169,8 @@ export default class Home extends Component {
                             registerVisible: false,
                         });
                     }}
-                    visible={this.state.registerVisible}/>
+                    visible={this.state.registerVisible}
+                    working={this.state.working}/>
                 <View style={{backgroundColor: 'transparent', flexDirection: 'row',}}>
                     <Text style={styles.saldoText}>
                         {this.state.account} kr

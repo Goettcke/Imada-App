@@ -22,6 +22,7 @@ export default class RegisterModal extends Component {
         registerPressed: PropTypes.func.isRequired,
         visible: PropTypes.bool.isRequired,
         backPressed: PropTypes.func.isRequired,
+        working: PropTypes.bool.isRequired,
     };
 
     constructor(props) {
@@ -85,9 +86,9 @@ export default class RegisterModal extends Component {
                         <TextInput
                             value={this.state.name}
                             onChangeText={this.nameInputChanged}
-                            keyboardType={'email-address'}
                             height={48}
-                            autoCapitalize={'none'}
+                            autoCapitalize={'words'}
+                            keyboardType={'default'}
                         />
                         <Text>Email</Text>
                         <TextInput
@@ -116,8 +117,12 @@ export default class RegisterModal extends Component {
                             autoCorrect={false}
                         />
 
-                        <View style={{flexDirection: 'row', justifyContent: 'center',}}>
-                            <Button title="Register" onPress={this.buttonPressed} style={{flex: 1,}}/>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between',}}>
+                            <Button title="Back" onPress={() => {
+                                this.props.backPressed();
+                            }} style={{flex: 1,}} color={colors.secondary} disabled={this.props.working}/>
+                            <Button title="Register" onPress={this.buttonPressed} style={{flex: 1,}}
+                                    color={colors.secondary} disabled={this.props.working}/>
                         </View>
 
                         <Text style={{fontSize: 14, color: 'black'}}>

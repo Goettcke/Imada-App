@@ -19,6 +19,7 @@ export default class SignInModal extends Component {
     static propTypes = {
         signInPressed: PropTypes.func.isRequired,
         visible: PropTypes.bool.isRequired,
+        working: PropTypes.bool.isRequired,
     };
 
     constructor(props) {
@@ -89,8 +90,14 @@ export default class SignInModal extends Component {
                         />
 
                         <View style={{flexDirection: 'row', justifyContent: 'space-between',}}>
-                            <Button title="Register" onPress={this.registerPressed} style={{flex: 1,}}/>
-                            <Button title="Log ind" onPress={this.loginButtonPressed} style={{flex: 1,}}/>
+                            <Button title="Register" onPress={this.registerPressed}
+                                    style={{flex: 1,}} disabled={this.props.working}
+                                    color={colors.secondary}
+                            />
+                            <Button title="Log ind" onPress={this.loginButtonPressed}
+                                    style={{flex: 1,}} disabled={this.props.working}
+                                    color={colors.secondary}
+                            />
                         </View>
 
                         <Text style={{fontSize: 14, color: 'black'}}>
