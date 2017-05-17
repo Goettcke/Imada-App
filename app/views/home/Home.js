@@ -44,6 +44,7 @@ export default class Home extends Component {
     }
 
     _onUserUpdated(user) {
+        console.log(user);
         if (user !== null) {
             this.setState({
                 account: user.balance,
