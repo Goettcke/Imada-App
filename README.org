@@ -1,5 +1,5 @@
 * Imada App
-React Native go on 
+Requires backend: https://github.com/MechaGK/imada-backend
 
 * Setting everything up
 
